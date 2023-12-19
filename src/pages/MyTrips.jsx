@@ -15,11 +15,12 @@ const MyTrips = () => {
     setIsLoading(false);
   };
 
+  const sortedTrips = trips.sort((a,b) => new Date(a.startDate) - new Date(b.startDate));
   const renderTrips = () => (
     <>
       <h1>Upcoming Trips:</h1>
       <section className="trips-list">
-        {trips.map((t) => (
+        {sortedTrips.map((t) => (
           <div key={t._id}>
         <Link to={`/trips/${t._id}`}>
             <div className="trips-card">
@@ -45,11 +46,11 @@ const MyTrips = () => {
 
   useEffect(() => {
     handleRequest();
-  }, []);
+  }, [trips]);
 
   return (
     <div>
-        <NewTripForm updateTripList={handleRequest} />
+      <NewTripForm updateTripList={handleRequest}/>
       <Link className="create-trip" to="/trips/new">
         Create a Trip
       </Link>
