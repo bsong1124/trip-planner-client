@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createTrips } from "../utilities/trips-service";
 
-const NewTripForm = ({updateTripList}) => {
+const NewTripForm = (updateTripList) => {
     const [newTrip, setNewTrip] = useState({
         name: '',
         description: '',
@@ -16,7 +16,7 @@ const NewTripForm = ({updateTripList}) => {
         console.log('data', newTrip);
         try {
           await createTrips(newTrip);
-          updateTripList()
+          await updateTripList()
         } catch (err) {}
     
         setNewTrip({
@@ -31,8 +31,7 @@ const NewTripForm = ({updateTripList}) => {
 
       function handleChange(e) {
         console.log(e.target.name, e.target.value)
-        setNewForm({ ...newTrip, [e.target.name]: e.target.name === 'startDate' || e.target.name === 'endDate' 
-        ? Date(e.target.value) : e.target.value});
+        setNewTrip({ ...newTrip, [e.target.name]: e.target.value})
       }
 
     return (
@@ -64,7 +63,7 @@ const NewTripForm = ({updateTripList}) => {
                 placeholder="startDate"
                 onChange={handleChange}/>
             <input
-                type="text"
+                type="date"
                 value={newTrip.endDate}
                 name="endDate"
                 placeholder="endDate"

@@ -3,6 +3,7 @@ import { getTrips } from "../utilities/trips-service";
 import moment from "moment";
 import "./MyTrips.css";
 import { Link } from "react-router-dom";
+import NewTripForm from "./NewTripForm";
 
 const MyTrips = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -50,6 +51,7 @@ const MyTrips = () => {
 
   return (
     <div>
+        <NewTripForm updateTripList={handleRequest} />
       <Link className="create-trip" to="/trips/new">
         Create a Trip
       </Link>
