@@ -69,13 +69,13 @@ const NewTripForm = ({updateTripList}) => {
                 placeholder="description"
                 required
                 onChange={handleChange}/>
-            <input
+            {/* <input
                 type="text"
                 value={newTrip.location}
                 name="location"
                 placeholder="location"
                 required
-                onChange={handleChange}/>
+                onChange={handleChange}/> */}
             <input
                 type="date"
                 value={newTrip.startDate}
@@ -90,9 +90,9 @@ const NewTripForm = ({updateTripList}) => {
                 name="endDate"
                 placeholder="endDate"
                 onChange={handleChange}
-                min={getCurrentDate}
+                min={getCurrentDate()}
                 />
-            <input type="submit"/>
+            <button type="submit">Create Trip</button>
             </form>
       </section>
     )
