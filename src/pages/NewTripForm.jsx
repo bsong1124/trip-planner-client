@@ -6,8 +6,8 @@ const NewTripForm = (updateTripList) => {
         name: '',
         description: '',
         location: '',
-        startDate: Date,
-        endDate: Date,
+        startDate: {type: Date},
+        endDate: {type: Date},
         activities: [],
     })
 
@@ -23,8 +23,8 @@ const NewTripForm = (updateTripList) => {
             name: '',
             description: '',
             location: '',
-            startDate: Date,
-            endDate: Date,
+            startDate: {type: Date},
+            endDate: {type: Date},
             activities: [],
         });
       }

@@ -2,7 +2,7 @@ import * as tripsAPI from "./trips-api";
 
 export async function createTrips(data) {
   try {
-    const newTrip = await tripAPI.create(data);
+    const newTrip = await tripsAPI.create(data);
     return newTrip;
   } catch (err) {
     console.log(err.message);
