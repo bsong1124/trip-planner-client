@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Nav.css";
 import LoginButton from "../Auth/LoginButton";
+import LogoutButton from "../Auth/LogoutButton";
 
 const Header = () => {
   return (
@@ -10,6 +11,9 @@ const Header = () => {
       </Link>
       <div>
         <LoginButton />
+      </div>
+      <div>
+        <LogoutButton />
       </div>
       <Link to="/trips">My Trips</Link>
       {/* <Link to="/trips/:id/activities">Activities</Link> */}
