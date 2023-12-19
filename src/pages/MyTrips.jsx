@@ -46,7 +46,7 @@ const MyTrips = () => {
 
   useEffect(() => {
     handleRequest();
-  }, [trips]);
+  }, []);
 
   return (
     <div>
