@@ -4,10 +4,10 @@ import "./Nav.css"
 const Header = () => {
     return (
         <nav className="Nav">
-            <Link to="/">Home</Link>
-            <Link to="/trips">My Trips</Link>
+            <Link className="nav-el" to="/">Home</Link>
+            <Link className="nav-el" to="/trips">My Trips</Link>
             {/* <Link to="/trips/:id/activities">Activities</Link> */}
-            <Link to="/about">About</Link>
+            <Link className="nav-el" to="/about">About</Link>
         </nav>
     )
 }

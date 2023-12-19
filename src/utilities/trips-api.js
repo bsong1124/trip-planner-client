@@ -25,3 +25,12 @@ export async function index() {
     throw new Error("Invalid request");
   }
 }
+
+export async function show (id) {
+    const res = await fetch(config.BASE_URL + `/${id}`, {method: "GET"})
+    if(res.ok) {
+        return res.json()
+    } else {
+        console.log(err.message)
+    }
+}

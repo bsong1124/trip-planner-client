@@ -22,18 +22,16 @@ const MyTrips = () => {
       <section className="trips-list">
         {sortedTrips.map((t) => (
           <div key={t._id}>
-            <h2>{t.name}</h2>
-            <h3>Description:</h3>
-            <p>{t.description}</p>
-            <h3>Location:</h3>
-            <p>{t.location}</p>
-            <h3>Dates:</h3>
-            <p>
+        <Link to={`/trips/${t._id}`}>
+            <div className="trips-card">
+            {t.name}<br/>
+            Location: 
+            {t.location}<br/>
+            Dates: 
               {moment(t.startDate).format("ll")} -{" "}
               {moment(t.endDate).format("ll")}
-            </p>
-            <h3>Activities:</h3>
-            <p>{t.activities}</p>
+            </div>
+            </Link><br/>
           </div>
         ))}
       </section>
