@@ -15,7 +15,7 @@ const NewTripForm = ({updateTripList}) => {
         e.preventDefault();
         console.log('data', newTrip);
         try {
-          await createTrip(newTrip);
+          await createTrips(newTrip);
           updateTripList()
         } catch (err) {}
     
