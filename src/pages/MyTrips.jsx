@@ -15,11 +15,12 @@ const MyTrips = () => {
     setIsLoading(false);
   };
 
+  const sortedTrips = trips.sort((a,b) => new Date(a.startDate) - new Date(b.startDate));
   const renderTrips = () => (
     <>
       <h1>Upcoming Trips:</h1>
       <section className="trips-list">
-        {trips.map((t) => (
+        {sortedTrips.map((t) => (
           <div key={t._id}>
             <h2>{t.name}</h2>
             <h3>Description:</h3>
