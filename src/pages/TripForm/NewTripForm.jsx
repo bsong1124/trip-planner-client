@@ -34,6 +34,22 @@ const NewTripForm = ({updateTripList}) => {
         setNewTrip({ ...newTrip, [e.target.name]: e.target.value})
       }
 
+      const getCurrentDate = () => {
+        const currentDate = new Date()
+        const year = currentDate.getFullYear();
+        let month = currentDate.getMonth() + 1; 
+        let day = currentDate.getDate();
+      
+        if (month < 10) {
+          month = `0${month}`;
+        }
+        if (day < 10) {
+          day = `0${day}`;
+        }
+      
+        return `${year}-${month}-${day}`;
+      }
+
     return (
         <section className="NewTripForm">
             <h2>New Trip</h2>
@@ -64,13 +80,17 @@ const NewTripForm = ({updateTripList}) => {
                 value={newTrip.startDate}
                 name="startDate"
                 placeholder="startDate"
-                onChange={handleChange}/>
+                onChange={handleChange}
+                min={getCurrentDate()}
+                />
             <input
                 type="date"
                 value={newTrip.endDate}
                 name="endDate"
                 placeholder="endDate"
-                onChange={handleChange}/>
+                onChange={handleChange}
+                min={getCurrentDate}
+                />
             <input type="submit"/>
             </form>
       </section>
