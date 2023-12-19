@@ -47,11 +47,11 @@ const MyTrips = () => {
 
   useEffect(() => {
     handleRequest();
-  }, []);
+  }, [trips]);
 
   return (
     <div>
-        <NewTripForm updateTripList={handleRequest} />
+      <NewTripForm updateTripList={handleRequest}/>
       <Link className="create-trip" to="/trips/new">
         Create a Trip
       </Link>
