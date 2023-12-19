@@ -51,9 +51,6 @@ const MyTrips = () => {
   return (
     <div>
       <NewTripForm updateTripList={handleRequest}/>
-      <Link className="create-trip" to="/trips/new">
-        Create a Trip
-      </Link>
       {isLoading ? renderLoading() : renderTrips()}
     </div>
   );
