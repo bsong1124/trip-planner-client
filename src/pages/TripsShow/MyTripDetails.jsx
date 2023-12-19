@@ -19,7 +19,7 @@ const MyTripDetails = () => {
       const handleDelete = async () => {
         try {
           await deleteTrip(id)
-          navigate('/')
+          navigate('/trips')
         } catch(err) {}
       }
   
