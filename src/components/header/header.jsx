@@ -25,7 +25,10 @@ const Header = () => {
           // if the user is authenticated (isAuthenticated === true), then a profile link and logout button are visible, otherwise, it will display the login button
           isAuthenticated ? (
             <span>
-              <Link to="/profile">Profile</Link>
+              {/* <Link to="/profile">Profile</Link> */}
+              <Link to="/profile">
+                <img src={user.picture} alt={`Picture of ${user.name}`} />
+              </Link>
               <LogoutButton />
             </span>
           ) : (
