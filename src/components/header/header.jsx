@@ -27,7 +27,7 @@ const Header = () => {
             <span>
               {/* <Link to="/profile">Profile</Link> */}
               <Link to="/profile">
-                <img src={user.picture} alt={`Picture of ${user.name}`} />
+                <img src={user.picture} alt={`Picture of ${user.name}`} className="avatar" />
               </Link>
               <LogoutButton />
             </span>

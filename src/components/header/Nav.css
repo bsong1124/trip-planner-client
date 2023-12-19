@@ -18,3 +18,8 @@ a:hover {
     color: white;
     border-radius: 6px;
 }
+
+.avatar {
+    border-radius: 50%;
+    height: 50px
+}

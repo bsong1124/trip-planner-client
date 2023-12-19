@@ -6,6 +6,7 @@ import { Navigate } from "react-router";
 
 const Profile = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
+  console.log(user)
 
   // if nested ternary JSX is difficult to read you can chain predicates to render various page states, depending on a user's authentication status:
 
