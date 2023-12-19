@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { getTrips } from "../utilities/trips-service";
+import { getTrips } from "../../utilities/trips-service";
 import moment from "moment";
 import "./MyTrips.css";
 import { Link } from "react-router-dom";
+import NewTripForm from "../TripForm/NewTripForm";
 
 const MyTrips = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,24 +15,23 @@ const MyTrips = () => {
     setIsLoading(false);
   };
 
+  const sortedTrips = trips.sort((a,b) => new Date(a.startDate) - new Date(b.startDate));
   const renderTrips = () => (
     <>
       <h1>Upcoming Trips:</h1>
       <section className="trips-list">
-        {trips.map((t) => (
+        {sortedTrips.map((t) => (
           <div key={t._id}>
-            <h2>{t.name}</h2>
-            <h3>Description:</h3>
-            <p>{t.description}</p>
-            <h3>Location:</h3>
-            <p>{t.location}</p>
-            <h3>Dates:</h3>
-            <p>
+        <Link to={`/trips/${t._id}`}>
+            <div className="trips-card">
+            {t.name}<br/>
+            Location: 
+            {t.location}<br/>
+            Dates: 
               {moment(t.startDate).format("ll")} -{" "}
               {moment(t.endDate).format("ll")}
-            </p>
-            <h3>Activities:</h3>
-            <p>{t.activities}</p>
+            </div>
+            </Link><br/>
           </div>
         ))}
       </section>
@@ -50,6 +50,7 @@ const MyTrips = () => {
 
   return (
     <div>
+      <NewTripForm updateTripList={handleRequest}/>
       <Link className="create-trip" to="/trips/new">
         Create a Trip
       </Link>

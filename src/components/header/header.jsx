@@ -6,6 +6,7 @@ import LoginButton from "../Auth/LoginButton";
 import LogoutButton from "../Auth/LogoutButton";
 
 const Header = () => {
+
   const { user, isAuthenticated, isLoading } = useAuth0();
   return (
     <nav className="Nav">
@@ -39,5 +40,16 @@ const Header = () => {
     </nav>
   );
 };
+
+    return (
+        <nav className="Nav">
+            <Link className="nav-el" to="/">Home</Link>
+            <Link className="nav-el" to="/trips">My Trips</Link>
+            {/* <Link to="/trips/:id/activities">Activities</Link> */}
+            <Link className="nav-el" to="/about">About</Link>
+        </nav>
+    )
+}
+
 
 export default Header;

@@ -4,7 +4,7 @@
 }
 
 
-a {
+.nav-el {
     padding: 5px;
     margin: 10px;
     text-decoration: none;
@@ -13,13 +13,18 @@ a {
     font-family: 'Poppins', sans-serif;
 }
 
-a:hover {
+.nav-el:hover {
     background-color: black;
     color: white;
     border-radius: 6px;
 }
 
+
 .avatar {
     border-radius: 50%;
     height: 50px
+
+a {
+    text-decoration: none;
+    color: black;
 }
