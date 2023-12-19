@@ -6,18 +6,17 @@ import LoginButton from "../Auth/LoginButton";
 import LogoutButton from "../Auth/LogoutButton";
 
 const Header = () => {
-
   const { user, isAuthenticated, isLoading } = useAuth0();
   return (
     <nav className="Nav">
       {/* The default UI (brand logo and app name)*/}
-      <Link to="/">
+      <Link className="nav-el" to="/">
         Home
         {/* <img src={brandImage} /> */}
       </Link>
-      <Link to="/trips">My Trips</Link>
+      <Link className="nav-el" to="/trips">My Trips</Link>
       {/* <Link to="/trips/:id/activities">Activities</Link> */}
-      <Link to="/about">About</Link>
+      <Link className="nav-el" to="/about">About</Link>
       <div>
         {/* Nested ternary to conditionally render multiple states */}
         {!isLoading ? (
@@ -28,7 +27,11 @@ const Header = () => {
             <span>
               {/* <Link to="/profile">Profile</Link> */}
               <Link to="/profile">
-                <img src={user.picture} alt={`Picture of ${user.name}`} className="avatar" />
+                <img
+                  src={user.picture}
+                  alt={`Picture of ${user.name}`}
+                  className="avatar"
+                />
               </Link>
               <LogoutButton />
             </span>
@@ -40,16 +43,5 @@ const Header = () => {
     </nav>
   );
 };
-
-    return (
-        <nav className="Nav">
-            <Link className="nav-el" to="/">Home</Link>
-            <Link className="nav-el" to="/trips">My Trips</Link>
-            {/* <Link to="/trips/:id/activities">Activities</Link> */}
-            <Link className="nav-el" to="/about">About</Link>
-        </nav>
-    )
-}
-
 
 export default Header;
