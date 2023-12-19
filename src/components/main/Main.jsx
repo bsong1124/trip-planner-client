@@ -11,7 +11,7 @@ const Main = () => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route path ='/trips' element ={<MyTrips />} />
-                <Route path='./trips/new' element ={<NewTripForm />} />
+                <Route path='/trips/new' element ={<NewTripForm />} />
                 <Route path='/about' element ={<About />}/>
             </Routes>
         </div>
