@@ -31,3 +31,13 @@ export async function getTrip(id) {
         console.log(err.message)
     }
 }
+
+export async function deleteTrip(id) {
+    try {
+      const deletedTrip = await tripsAPI.destroy(id);
+      return deletedTrip;
+    } catch (err) {
+      console.log(err, err.message);
+      throw err;
+    }
+  }
