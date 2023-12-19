@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { createTrips } from "../utilities/trips-service";
 
-const NewTripForm = (updateTripList) => {
+const NewTripForm = ({updateTripList}) => {
     const [newTrip, setNewTrip] = useState({
         name: '',
         description: '',
