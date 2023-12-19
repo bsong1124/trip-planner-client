@@ -18,3 +18,16 @@ export async function getTrips() {
     console.log(err.message);
   }
 }
+
+export async function getTrip(id) {
+    try {
+        const tripId = await tripsAPI.show(id)
+        if(tripId){
+            return tripId
+        } else {
+            console.log("no trip found", id)
+        }
+    } catch(err){
+        console.log(err.message)
+    }
+}
