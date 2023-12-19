@@ -1,21 +1,28 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
-import { getTrip } from "../../utilities/trips-service"
+import { getTrip, deleteTrip } from "../../utilities/trips-service"
 import moment from "moment"
 
 const MyTripDetails = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [trip, setTrip] = useState(null)
     const { id } = useParams()
+    const navigate = useNavigate()
 
 
     async function handleRequest() {
         const tripDetails = await getTrip(id);
         setTrip(tripDetails);
         setIsLoading(false);
-      }
-    
+    }
 
+      const handleDelete = async () => {
+        try {
+          await deleteTrip(id)
+          navigate('/')
+        } catch(err) {}
+      }
+  
     useEffect(()=>{
         handleRequest()
     }, [])
@@ -41,6 +48,7 @@ const MyTripDetails = () => {
             <p>{trip.description}</p>
             <h3>Activities:</h3>
             <p>{trip.activities}</p>
+            <button onClick={handleDelete}>Delete Trip</button>
         </div>
     )
 
