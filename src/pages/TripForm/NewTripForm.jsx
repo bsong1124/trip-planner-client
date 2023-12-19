@@ -43,18 +43,21 @@ const NewTripForm = ({updateTripList}) => {
                 value={newTrip.name}
                 name="name"
                 placeholder="name"
+                required
                 onChange={handleChange}/>
             <input
                 type="text"
                 value={newTrip.description}
                 name="description"
                 placeholder="description"
+                required
                 onChange={handleChange}/>
             <input
                 type="text"
                 value={newTrip.location}
                 name="location"
                 placeholder="location"
+                required
                 onChange={handleChange}/>
             <input
                 type="date"
