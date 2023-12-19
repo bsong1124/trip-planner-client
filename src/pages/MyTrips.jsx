@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { getTrips } from "../utilities/trips-service";
-import moment from 'moment';
+import moment from "moment";
+import "./MyTrips.css";
+import { Link } from "react-router-dom";
 
 const MyTrips = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -25,7 +27,8 @@ const MyTrips = () => {
             <p>{t.location}</p>
             <h3>Dates:</h3>
             <p>
-            {moment(t.startDate).format("ll")} - {moment(t.endDate).format("ll")}
+              {moment(t.startDate).format("ll")} -{" "}
+              {moment(t.endDate).format("ll")}
             </p>
             <h3>Activities:</h3>
             <p>{t.activities}</p>
@@ -47,7 +50,9 @@ const MyTrips = () => {
 
   return (
     <div>
-      <button>Create a Trip</button>
+      <Link className="create-trip" to="/trips/new">
+        Create a Trip
+      </Link>
       {isLoading ? renderLoading() : renderTrips()}
     </div>
   );
