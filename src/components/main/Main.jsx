@@ -1,10 +1,10 @@
 import {Routes, Route} from 'react-router-dom'
 
 import Home from '../../pages/Home'
-import MyTrips from '../../pages/MyTrips'
+import MyTrips from '../../pages/TripsIndex/MyTrips'
 import About from '../../pages/About'
-import NewTripForm from '../../pages/NewTripForm'
-import MyTripDetails from '../../pages/MyTripDetails'
+import NewTripForm from '../../pages/TripForm/NewTripForm'
+import MyTripDetails from '../../pages/TripsShow/MyTripDetails'
 
 const Main = () => {
     return (

@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
-import { getTrip } from "../utilities/trips-service"
+import { getTrip } from "../../utilities/trips-service"
 import moment from "moment"
 
 const MyTripDetails = () => {
