@@ -17,25 +17,35 @@ const MyTrips = () => {
     setIsLoading(false);
   };
 
-  const sortedTrips = trips.sort((a,b) => new Date(a.startDate) - new Date(b.startDate));
+  const sortedTrips = trips.sort(
+    (a, b) => new Date(a.startDate) - new Date(b.startDate)
+  );
   const renderTrips = () => (
     <>
       <h1>Upcoming Trips</h1>
       <section className="trips-list">
         {/* Refactor conditional to read as trips id = user id */}
-        {trips.length ? sortedTrips.map((t) => (
-          <div key={t._id}>
-        <Link to={`/trips/${t._id}`}>
-            <div className="trips-card">
-            {t.name}<br/>
-            {t.location ? t.location : 'No location yet'}<br/>
-            Dates: 
-              {moment(t.startDate).format("ll")} -{" "}
-              {moment(t.endDate).format("ll")}
-            </div>
-            </Link><br/>
-          </div>
-        )) : "No trips yet"}
+        {trips.length
+          ? sortedTrips.map((t) => (
+              <>
+                {t.id === user.sub.slice(14) ? (
+                  <div key={t._id}>
+                    <Link to={`/trips/${t._id}`}>
+                      <div className="trips-card">
+                        {t.name}
+                        <br />
+                        {t.location ? t.location : "No location yet"}
+                        <br />
+                        Dates:
+                        {moment(t.startDate).format("ll")} -{" "}
+                        {moment(t.endDate).format("ll")}
+                      </div>
+                    </Link>
+                  </div>
+                ) : null}
+              </>
+            ))
+          : "No trips yet"}
       </section>
     </>
   );
@@ -52,13 +62,15 @@ const MyTrips = () => {
 
   return (
     <section>
-    {isAuthenticated && !loadingAuth ? (
-    <div>
-      <NewTripForm updateTripList={handleRequest}/>
-      {isLoading ? renderLoading() : renderTrips()}
-    </div>
-    ) : "Log in to create and view trips!" }
-  </section>
+      {isAuthenticated && !loadingAuth ? (
+        <div>
+          <NewTripForm updateTripList={handleRequest} />
+          {isLoading ? renderLoading() : renderTrips()}
+        </div>
+      ) : (
+        "Log in to create and view trips!"
+      )}
+    </section>
   );
 };
 
