@@ -2,7 +2,10 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { getTrip, deleteTrip, findLocation } from "../../utilities/trips-service"
 import moment from "moment"
-import SearchLocation from "./SearchLocation"
+import config from "../../config"
+
+const token = config.TOKEN
+console.log(token)
 
 const MyTripDetails = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -34,12 +37,21 @@ const MyTripDetails = () => {
         </section>
       );
 
-    const getLocation = async (e) => {
+    const getLocation = async (req, e) => {
       e.preventDefault()
       try{
-        const locations = await findLocation()
-        console.log('LOCATIONS', locations)
-      } catch(err) {}
+        console.log("running")
+        const searchQuery = req.query.params
+        console.log("search query", searchQuery)
+        // const locations = await findLocation()
+        const ROOT_URL = "https://api.content.tripadvisor.com/api/v1/location"
+        let endpoint = `${ROOT_URL}/search?key=${token}&searchQuery=${"nyc"}&language=en`;
+        const locations = await fetch(endpoint, {method: "GET"})
+        const locationData = await locations.json()
+        console.log('LOCATIONS', locationData)
+      } catch(err) {
+        console.log("error")
+      }
     }
 
     const renderTrip = () => (
