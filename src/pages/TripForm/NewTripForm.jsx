@@ -43,7 +43,7 @@ const NewTripForm = ({ updateTripList }) => {
   }
 
   function handleChange(e) {
-    console.log(e.target.name, e.target.value);
+    // console.log(e.target.name, e.target.value);
     setNewTrip({ ...newTrip, [e.target.name]: e.target.value });
   }
 
