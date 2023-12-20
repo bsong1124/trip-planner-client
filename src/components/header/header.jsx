@@ -14,10 +14,14 @@ const Header = () => {
         Home
         {/* <img src={brandImage} /> */}
       </Link>
-      <Link className="nav-el" to="/trips">My Trips</Link>
+      <Link className="nav-el" to="/trips">
+        My Trips
+      </Link>
       {/* <Link to="/trips/:id/activities">Activities</Link> */}
-      <Link className="nav-el" to="/about">About</Link>
-      <div>
+      <Link className="nav-el" to="/about">
+        About
+      </Link>
+      <div className="auth-buttons">
         {/* Nested ternary to conditionally render multiple states */}
         {!isLoading ? (
           // if the loading variable is true - the ! will convert it to false and 'null' will be returned
@@ -26,17 +30,17 @@ const Header = () => {
           isAuthenticated ? (
             <span>
               {/* <Link to="/profile">Profile</Link> */}
-              <Link to="/profile">
+              <Link className="nav-el" to="/profile">
                 <img
                   src={user.picture}
                   alt={`Picture of ${user.name}`}
                   className="avatar"
                 />
               </Link>
-              <LogoutButton />
+              <LogoutButton className="nav-el" />
             </span>
           ) : (
-            <LoginButton />
+            <LoginButton className="nav-el" />
           )
         ) : null}
       </div>
