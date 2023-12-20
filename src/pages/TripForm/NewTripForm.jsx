@@ -96,7 +96,7 @@ const NewTripForm = ({updateTripList}) => {
                 name="endDate"
                 placeholder="endDate"
                 onChange={handleChange}
-                min={getCurrentDate()}
+                min={newTrip.startDate}
                 />
             <button type="submit">Create Trip</button>
             </form>
