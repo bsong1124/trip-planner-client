@@ -25,8 +25,7 @@ const MyTrips = () => {
         <Link to={`/trips/${t._id}`}>
             <div className="trips-card">
             {t.name}<br/>
-            Location: 
-            {t.location}<br/>
+            {t.location ? t.location : 'No location yet'}<br/>
             Dates: 
               {moment(t.startDate).format("ll")} -{" "}
               {moment(t.endDate).format("ll")}
