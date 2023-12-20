@@ -15,6 +15,7 @@ const MyTripDetails = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [locations, setLocations] = useState([]);
+  const [image, setImage] = useState([])
 
   async function handleRequest() {
     const tripDetails = await getTrip(id);
@@ -42,11 +43,15 @@ const MyTripDetails = () => {
       console.log("search query", search);
       const locationResponse = await findLocation(id, search);
       console.log({ locationResponse });
-      await setLocations(locationResponse);
+      setLocations(locationResponse.allData);
+      setImage(locationResponse.imageData)
+
     } catch (err) {
       console.log("error");
     }
   };
+  console.log({locations})
+  console.log({image})
 
   const addLocation = async (e) => {
     e.preventDefault();
@@ -72,10 +77,12 @@ const MyTripDetails = () => {
         <button type="submit">Search Location</button>
       </form>
       {locations &&
-        locations.map((l) => (
+        locations.map((l, idx) => (
           <div key={l.location_id}>
             <form onSubmit={addLocation}>
               <p>{l.name}</p>
+              {/* <p>{image[idx].url}</p> */}
+              <img src={image[idx].url} />
               <button type="submit">Select Location</button>
             </form>
           </div>
