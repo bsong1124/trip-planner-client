@@ -36,8 +36,7 @@ export async function show(id) {
 }
 
 export async function destroy(id) {
-  let endpoint = `${config.BASE_URL}/${id}`;
-  const response = await fetch(endpoint, {
+  const response = await fetch(config.BASE_URL + `/${id}`, {
     method: "DELETE",
   });
 
@@ -45,5 +44,14 @@ export async function destroy(id) {
     return response.json();
   } else {
     throw new Error("Invalid Request");
+  }
+}
+
+export async function searchLocation() {
+  const response = await fetch(config.SEARCH_URL, { method: "GET" });
+  if (response.ok) {
+    return response.json();
+  } else {
+    console.log(err.message);
   }
 }

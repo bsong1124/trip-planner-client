@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { createTrips } from "../../utilities/trips-service";
+import { useNavigate, useParams } from "react-router-dom";
 import "./NewTripForm.css"
 
 const NewTripForm = ({updateTripList}) => {
@@ -11,13 +12,18 @@ const NewTripForm = ({updateTripList}) => {
         endDate: '',
         activities: [],
     })
+    const { id } = useParams()
+    const navigate = useNavigate()
 
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log('data', newTrip);
+        // console.log('data', newTrip);
+        // console.log('ID', id)
         try {
-          await createTrips(newTrip);
+          const trip = await createTrips(newTrip);
+        //   console.log(trip)
           await updateTripList()
+          navigate(`/trips/${trip._id}`)
         } catch (err) {}
     
         setNewTrip({
