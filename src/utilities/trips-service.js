@@ -20,24 +20,34 @@ export async function getTrips() {
 }
 
 export async function getTrip(id) {
-    try {
-        const tripId = await tripsAPI.show(id)
-        if(tripId){
-            return tripId
-        } else {
-            console.log("no trip found", id)
-        }
-    } catch(err){
-        console.log(err.message)
+  try {
+    const tripId = await tripsAPI.show(id);
+    if (tripId) {
+      return tripId;
+    } else {
+      console.log("no trip found", id);
     }
+  } catch (err) {
+    console.log(err.message);
+  }
 }
 
 export async function deleteTrip(id) {
-    try {
-      const deletedTrip = await tripsAPI.destroy(id);
-      return deletedTrip;
-    } catch (err) {
-      console.log(err, err.message);
-      throw err;
-    }
+  try {
+    const deletedTrip = await tripsAPI.destroy(id);
+    return deletedTrip;
+  } catch (err) {
+    console.log(err, err.message);
+    throw err;
   }
+}
+
+export async function findLocation() {
+  try {
+    const location = await tripsAPI.searchLocation();
+    return location;
+  } catch (err) {
+    console.log(err.message);
+    throw err;
+  }
+}
