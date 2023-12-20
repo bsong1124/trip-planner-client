@@ -47,10 +47,18 @@ export async function destroy(id) {
   }
 }
 
-export async function searchLocation() {
-  const response = await fetch(config.BASE_URL, { method: "GET" });
+export async function searchLocation(id, q) {
+  const response = await fetch(`${config.BASE_URL}/${id}/search?q=${q}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  // console.log("RESPONSE", response);
   if (response.ok) {
-    return response.json();
+    const locationData = await response.json();
+    console.log({ locationData });
+    return locationData;
   } else {
     console.log(err.message);
   }

@@ -9,13 +9,15 @@ import moment from "moment";
 import config from "../../config";
 
 const token = config.TOKEN;
-// console.log(token)
+console.log(token);
 
 const MyTripDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [trip, setTrip] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
+
+  const [search, setSearch] = useState("");
 
   async function handleRequest() {
     const tripDetails = await getTrip(id);
@@ -40,21 +42,17 @@ const MyTripDetails = () => {
     </section>
   );
 
-  const getLocation = async (req, e) => {
+  const handleChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const getLocation = async (e) => {
     e.preventDefault();
-    console.log("running");
     try {
       console.log("running");
-      // const searchQuery = req.body
-
-      // console.log("search query", searchQuery)
-      // const locations = await findLocation()
-      const ROOT_URL = "https://api.content.tripadvisor.com/api/v1/location";
-      let endpoint = `${ROOT_URL}/search?key=${token}&searchQuery=${"nyc"}&language=en`;
-      console.log("endpoint: ", endpoint);
-      const locations = await fetch(endpoint, { method: "GET" });
-      const locationData = await locations.json();
-      console.log("LOCATIONS", locationData);
+      console.log("search query", search);
+      const locations = await findLocation(id, search);
+      console.log({ locations });
     } catch (err) {
       console.log("error");
     }
@@ -65,9 +63,8 @@ const MyTripDetails = () => {
       <h1>{trip.name}</h1>
       <h3>Location:</h3>
       <p>{trip.location}</p>
-      {/* <SearchLocation /> */}
       <form onSubmit={getLocation}>
-        <input name="location" type="text" />
+        <input type="text" value={search} onChange={handleChange} />
         <button type="submit">Search Location</button>
       </form>
       <h3>Dates:</h3>
