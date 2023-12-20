@@ -64,6 +64,7 @@ const MyTripDetails = () => {
   const renderTrip = () => (
     <div>
       <h1>{trip.name}</h1>
+      <h3>User ID: {trip.id}</h3>
       <h3>Location:</h3>
       <p>{trip.location}</p>
       <form onSubmit={getLocation}>
