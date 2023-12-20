@@ -13,6 +13,8 @@ const MyTripDetails = () => {
     const { id } = useParams()
     const navigate = useNavigate()
 
+    const [search, setSearch] = useState('')
+
 
     async function handleRequest() {
         const tripDetails = await getTrip(id);
@@ -37,18 +39,17 @@ const MyTripDetails = () => {
         </section>
       );
 
-    const getLocation = async (req, e) => {
+    const handleChange = (event) => {
+      setSearch(event.target.value);
+    }
+
+    const getLocation = async (e) => {
       e.preventDefault()
       try{
-        console.log("running")
-        const searchQuery = req.query.params
-        console.log("search query", searchQuery)
-        // const locations = await findLocation()
-        const ROOT_URL = "https://api.content.tripadvisor.com/api/v1/location"
-        let endpoint = `${ROOT_URL}/search?key=${token}&searchQuery=${"nyc"}&language=en`;
-        const locations = await fetch(endpoint, {method: "GET"})
-        const locationData = await locations.json()
-        console.log('LOCATIONS', locationData)
+        console.log('running')
+        console.log("search query", search)
+        const locations = await findLocation(id, search)
+        console.log({locations})
       } catch(err) {
         console.log("error")
       }
@@ -60,7 +61,7 @@ const MyTripDetails = () => {
             <h3>Location:</h3>
             <p>{trip.location}</p>
             <form onSubmit={getLocation}>
-              <input type='text' />
+              <input type='text' value={search} onChange={handleChange}/>
               <button type='submit'>Search Location</button>
             </form>
             <h3>Dates:</h3>
