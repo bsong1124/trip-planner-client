@@ -9,6 +9,7 @@ const Header = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   return (
     <nav className="Nav">
+      <Link to="/"><img className="logo-img" src="../../../public/images/favicon.png"/> </Link>
       {/* The default UI (brand logo and app name)*/}
       <Link className="nav-el" to="/">
         Home
