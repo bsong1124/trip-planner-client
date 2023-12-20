@@ -1,6 +1,9 @@
 .Nav {
     text-align: center;
     margin-top: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
@@ -28,4 +31,8 @@
 a {
     text-decoration: none;
     color: black;
+}
+
+.logo-img {
+    width: 10vh;
 }
