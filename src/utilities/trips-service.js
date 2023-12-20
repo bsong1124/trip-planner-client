@@ -51,3 +51,13 @@ export async function findLocation(id, q) {
     throw err;
   }
 }
+
+export async function updateLocation(id, data) {
+  try {
+    const updatedLocation = await tripsAPI.update(id, data);
+    return updatedLocation;
+  } catch (err) {
+    console.log(err.message);
+    throw err;
+  }
+}

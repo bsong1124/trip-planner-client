@@ -4,6 +4,7 @@ import {
   getTrip,
   deleteTrip,
   findLocation,
+  updateLocation
 } from "../../utilities/trips-service";
 import moment from "moment";
 
@@ -13,6 +14,7 @@ const MyTripDetails = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
+  const [locations, setLocations] = useState([]);
 
   async function handleRequest() {
     const tripDetails = await getTrip(id);
@@ -20,32 +22,38 @@ const MyTripDetails = () => {
     setIsLoading(false);
   }
 
-  
   useEffect(() => {
     handleRequest();
   }, []);
-  
+
   const renderLoading = () => (
     <section>
       <h2>Loading...</h2>
     </section>
   );
-  
+
   const handleChange = (e) => {
     setSearch(e.target.value);
   };
-  
+
   const getLocation = async (e) => {
     e.preventDefault();
     try {
       console.log("search query", search);
-      const locations = await findLocation(id, search);
-      console.log({ locations });
+      const locationResponse = await findLocation(id, search);
+      console.log({ locationResponse });
+      await setLocations(locationResponse);
     } catch (err) {
       console.log("error");
     }
   };
-  
+
+  const addLocation = async (e) => {
+    e.preventDefault();
+    const tripData = await getTrip(id)
+    console.log(tripData)
+  }
+
   const handleDelete = async () => {
     try {
       await deleteTrip(id);
@@ -62,6 +70,15 @@ const MyTripDetails = () => {
         <input type="text" value={search} onChange={handleChange} />
         <button type="submit">Search Location</button>
       </form>
+      {locations &&
+        locations.map((l) => (
+          <div key={l.location_id}>
+            <form onSubmit={addLocation}>
+              <p>{l.name}</p>
+              <button type="submit">Select Location</button>
+            </form>
+          </div>
+        ))}
       <h3>Dates:</h3>
       <p>
         {moment(trip.startDate).format("ll")} -{" "}
@@ -74,7 +91,7 @@ const MyTripDetails = () => {
       <button onClick={handleDelete}>Delete Trip</button>
     </div>
   );
-  
+
   return <div>{isLoading ? renderLoading() : renderTrip()}</div>;
 };
 
