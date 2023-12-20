@@ -1,7 +1,7 @@
+import "./MyTrips.css";
+import moment from "moment";
 import { useState, useEffect } from "react";
 import { getTrips } from "../../utilities/trips-service";
-import moment from "moment";
-import "./MyTrips.css";
 import { Link } from "react-router-dom";
 import NewTripForm from "../TripForm/NewTripForm";
 

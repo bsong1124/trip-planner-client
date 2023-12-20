@@ -27,18 +27,29 @@ const MyTripDetails = () => {
         handleRequest()
     }, [])
 
-
     const renderLoading = () => (
         <section>
           <h2>Loading...</h2>
         </section>
       );
 
+    const getLocation = async (e) => {
+      e.preventDefault()
+      try{
+        const locations = await findLocation()
+        console.log('LOCATIONS', locations)
+      } catch(err) {}
+    }
+
     const renderTrip = () => (
         <div>
             <h1>{trip.name}</h1>
             <h3>Location:</h3>
             <p>{trip.location}</p>
+            <form onSubmit={getLocation}>
+              <input type='text' />
+              <button type='submit'>Search Location</button>
+            </form>
             <h3>Dates:</h3>
             <p>
               {moment(trip.startDate).format("ll")} -{" "}
