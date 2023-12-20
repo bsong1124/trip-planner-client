@@ -48,7 +48,7 @@ export async function destroy(id) {
 }
 
 export async function searchLocation() {
-  const response = await fetch(config.SEARCH_URL, { method: "GET" });
+  const response = await fetch(config.BASE_URL, { method: "GET" });
   if (response.ok) {
     return response.json();
   } else {

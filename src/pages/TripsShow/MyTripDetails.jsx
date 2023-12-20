@@ -2,6 +2,7 @@ import { useParams, useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { getTrip, deleteTrip, findLocation } from "../../utilities/trips-service"
 import moment from "moment"
+import SearchLocation from "./SearchLocation"
 
 const MyTripDetails = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -46,6 +47,7 @@ const MyTripDetails = () => {
             <h1>{trip.name}</h1>
             <h3>Location:</h3>
             <p>{trip.location}</p>
+            {/* <SearchLocation /> */}
             <form onSubmit={getLocation}>
               <input type='text' />
               <button type='submit'>Search Location</button>
