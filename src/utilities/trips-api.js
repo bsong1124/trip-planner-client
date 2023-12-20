@@ -57,7 +57,7 @@ export async function searchLocation(id, q) {
   // console.log("RESPONSE", response);
   if (response.ok) {
     const locationData = await response.json();
-    console.log({ locationData });
+    // console.log({ locationData });
     return locationData;
   } else {
     console.log(err.message);

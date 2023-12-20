@@ -6,17 +6,12 @@ import {
   findLocation,
 } from "../../utilities/trips-service";
 import moment from "moment";
-import config from "../../config";
-
-const token = config.TOKEN;
-console.log(token);
 
 const MyTripDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [trip, setTrip] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
-
   const [search, setSearch] = useState("");
 
   async function handleRequest() {
@@ -25,37 +20,37 @@ const MyTripDetails = () => {
     setIsLoading(false);
   }
 
-  const handleDelete = async () => {
-    try {
-      await deleteTrip(id);
-      navigate("/trips");
-    } catch (err) {}
-  };
-
+  
   useEffect(() => {
     handleRequest();
   }, []);
-
+  
   const renderLoading = () => (
     <section>
       <h2>Loading...</h2>
     </section>
   );
-
-  const handleChange = (event) => {
-    setSearch(event.target.value);
+  
+  const handleChange = (e) => {
+    setSearch(e.target.value);
   };
-
+  
   const getLocation = async (e) => {
     e.preventDefault();
     try {
-      console.log("running");
       console.log("search query", search);
       const locations = await findLocation(id, search);
       console.log({ locations });
     } catch (err) {
       console.log("error");
     }
+  };
+  
+  const handleDelete = async () => {
+    try {
+      await deleteTrip(id);
+      navigate("/trips");
+    } catch (err) {}
   };
 
   const renderTrip = () => (
@@ -79,7 +74,7 @@ const MyTripDetails = () => {
       <button onClick={handleDelete}>Delete Trip</button>
     </div>
   );
-
+  
   return <div>{isLoading ? renderLoading() : renderTrip()}</div>;
 };
 
