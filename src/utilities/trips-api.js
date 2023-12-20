@@ -57,9 +57,24 @@ export async function searchLocation(id, q) {
   // console.log("RESPONSE", response);
   if (response.ok) {
     const locationData = await response.json();
-    console.log({ locationData });
+    // console.log({ locationData });
     return locationData;
   } else {
     console.log(err.message);
+  }
+}
+
+export async function update(id, formData) {
+  const response = await fetch(`${config.BASE_URL}/${id}/search?q=${q}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+  if (response.ok) {
+    return response.json();
+  } else {
+    throw new Error("Invalid PUT Request");
   }
 }
