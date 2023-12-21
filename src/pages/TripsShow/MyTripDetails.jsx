@@ -48,14 +48,11 @@ const MyTripDetails = () => {
   const getLocations = async (e) => {
     e.preventDefault();
     try {
-      // console.log("search query", searchLocation);
-      const locationResponse = await findLocation(id, searchLocation);
-      // console.log({ locationResponse });
       console.log("search query", searchLocation);
       const locationResponse = await findLocations(id, searchLocation);
       console.log({ locationResponse });
       setLocations(locationResponse.allData);
-      setImages(locationResponse.imageData);
+      setImage(locationResponse.imageData);
     } catch (err) {
       console.log("error");
     }
@@ -72,14 +69,6 @@ const MyTripDetails = () => {
       setActivitiesImage(activityResponse.nearbyDataPromises);
     } catch (err) {}
   };
-  console.log({ activitiesImage });
-  // console.log({activities})
-  // console.log(activities[0])
-      console.log({ activityResponse });
-      setActivities(activityResponse);
-    } catch (err) {}
-  };
-
 
   const addLocation = async (l, idx) => {
     console.log({ l });
@@ -93,7 +82,6 @@ const MyTripDetails = () => {
         location: {
           id: l.location_id,
           name: l.name,
-
           image: image[idx].url
 
         },
@@ -187,12 +175,13 @@ const MyTripDetails = () => {
         </div>
       ) : (
         <div className="search-section">
-          <form onSubmit={getLocation}>
-            <input type="text" value={searchLocation} onChange={handleChange} />
-            <button className="btn btn-primary p-2" type="submit">
+          <h3>Enter your location:</h3>
+          <form onSubmit={getLocations}>
+            <input className="input-field" type="text" value={searchLocation} onChange={handleChange} />
+            <button className="btn btn-primary p-2" type="submit">Search Location</button>
           </form>
           <div className="select-location">
-          {locations && locations.map((l, idx) => renderLocation(l, idx))}
+          {locations && locations.map((l, idx) => renderLocations(l, idx))}
         </div>
         </div>
       )}
