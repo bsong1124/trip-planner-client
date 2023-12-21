@@ -71,8 +71,6 @@ export async function update(id) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(formData),
-  }); 
-    }
   });
   if (response.ok) {
     return response.json();
@@ -82,12 +80,15 @@ export async function update(id) {
 }
 
 export async function searchActivity(id, q) {
-  const response = await fetch(`${config.BASE_URL}/${id}/activities/search?q=${q}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  const response = await fetch(
+    `${config.BASE_URL}/${id}/activities/search?q=${q}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   // console.log("RESPONSE", response);
   if (response.ok) {
     const activityData = await response.json();
