@@ -12,7 +12,7 @@ const LoginButton = () => {
     });
   };
 
-  return <button className="login-btn" onClick={handleLogin}>Log In</button>;
+  return <button className="btn login-btn" onClick={handleLogin}>Log In</button>;
 };
 
 export default LoginButton;

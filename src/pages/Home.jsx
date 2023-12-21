@@ -10,12 +10,12 @@ const Home = () => {
   return (
     <div className="home-wrapper">
       <h1 className="header-title">Welcome to Journey Craft</h1>
-      <p>
+      <p className="mb-4">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </p>
       {isAuthenticated && !loadingAuth ? (
-        <Link to="/trips" className="btn-primary">
+        <Link to="/trips" className="btn">
           My Trips
         </Link>
       ) : (

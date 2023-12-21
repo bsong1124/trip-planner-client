@@ -8,44 +8,57 @@ import LogoutButton from "../Auth/LogoutButton";
 const Header = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   return (
-    <nav className="Nav">
-      <Link to="/"><img className="logo-img" src="../../../images/favicon.png"/> </Link>
-      {/* The default UI (brand logo and app name)*/}
-      <Link className="nav-el" to="/">
-        Home
-        {/* <img src={brandImage} /> */}
-      </Link>
-      <Link className="nav-el" to="/trips">
-        My Trips
-      </Link>
-      {/* <Link to="/trips/:id/activities">Activities</Link> */}
-      <Link className="nav-el" to="/about">
-        About
-      </Link>
-      <div className="auth-buttons">
+    <header className="flex items-center justify-around font-header font-extralight text-xl text-emerald-500 m-8">
+      <nav className="flex space-between ml-8 Nav">
+        <Link to="/">
+          <img className="w-16 logo-img" src="../../../images/favicon.png" />{" "}
+        </Link>
+        {/* The default UI (brand logo and app name)*/}
+        <Link
+          className="btn-nav p-1 m-2.5 nav-el"
+          to="/"
+        >
+          Home
+          {/* <img src={brandImage} /> */}
+        </Link>
+        <Link
+          className="btn-nav p-1 m-2.5 nav-el"
+          to="/trips"
+        >
+          My Trips
+        </Link>
+        {/* <Link to="/trips/:id/activities">Activities</Link> */}
+        <Link
+          className="btn-nav p-1 m-2.5 nav-el"
+          to="/about"
+        >
+          About
+        </Link>
+      </nav>
+      <div className="flex justify-end auth-buttons">
         {/* Nested ternary to conditionally render multiple states */}
         {!isLoading ? (
           // if the loading variable is true - the ! will convert it to false and 'null' will be returned
           // if the loading variable is false - the ! will convert it to true and the next ternary will evaluate
           // if the user is authenticated (isAuthenticated === true), then a profile link and logout button are visible, otherwise, it will display the login button
           isAuthenticated ? (
-            <span>
+            <>
               {/* <Link to="/profile">Profile</Link> */}
-              <Link className="nav-el" to="/profile">
+              <Link className="p-1 m-2.5 nav-el" to="/profile">
                 <img
                   src={user.picture}
                   alt={`Picture of ${user.name}`}
-                  className="avatar"
+                  className="w-12 rounded-full avatar"
                 />
               </Link>
-              <LogoutButton className="nav-el" />
-            </span>
+              <LogoutButton />
+            </>
           ) : (
-            <LoginButton className="nav-el" />
+            <LoginButton />
           )
         ) : null}
       </div>
-    </nav>
+    </header>
   );
 };
 
