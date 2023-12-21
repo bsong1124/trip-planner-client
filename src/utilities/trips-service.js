@@ -54,6 +54,7 @@ export async function findLocation(id, q) {
 
 export async function updateLocation(id, data) {
   try {
+    console.log({data});
     const updatedLocation = await tripsAPI.update(id, data);
     return updatedLocation;
   } catch (err) {

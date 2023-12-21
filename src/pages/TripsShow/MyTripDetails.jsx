@@ -23,6 +23,7 @@ const MyTripDetails = () => {
 
   async function handleRequest() {
     const tripDetails = await getTrip(id);
+    console.log({tripDetails})
     setTrip(tripDetails);
     setIsLoading(false);
   }
@@ -64,29 +65,28 @@ const MyTripDetails = () => {
     } catch(err) {}
   }
 
-  // console.log({ locations });
-  // console.log({ image });
-
-
-  // handleSubmit for adding a location
-  const addLocation = async (e) => {
-    e.preventDefault();
-    const updateTrip = await updateLocation(id);
+  const addLocation = async (l, idx ) => {
+    console.log({l})
     try {
+      console.log({image})
       console.log("it works");
-      // const updatedTripData = {...trip, location: {
-      //     id: ,
-      //     name: ,
-      //     image: ,
-      //   },
-      // }
-
-      // navigate(`/trips/${id}`);
-    } catch (err) {
-      console.log(err);
-      // navigate(`/trips/${id}`);
+      const updatedTripData = {...trip, location: {
+        id: l.location_id,
+        name: l.name,
+        image: image[idx].url,
+      },
     }
-  };
+    setTrip(updatedTripData)
+    updateLocation(id, updatedTripData)
+    console.log({updatedTripData})
+    
+    // navigate(`/trips/${id}`);
+  } catch (err) {
+    console.log(err);
+    // navigate(`/trips/${id}`);
+  }
+};
+console.log({trip})
 
   const handleDelete = async () => {
     try {
@@ -95,26 +95,36 @@ const MyTripDetails = () => {
     } catch (err) {}
   };
 
-  const renderTrip = () => (
-    <div>
-      <h1>{trip.name}</h1>
-      <h3>User ID: {trip.id}</h3>
-      <h3>Location:</h3>
-      <p>{trip.location}</p>
-      <form onSubmit={getLocation}>
-        <input type="text" value={searchLocation} onChange={handleChange} />
-        <button type="submit">Search Location</button>
-      </form>
-      {locations &&
-        locations.map((l, idx) => (
-          <div key={l.location_id}>
-            <form onSubmit={addLocation}>
+  const renderLocation = (l, idx) => {
+    const submit = async (e) => { 
+      e.preventDefault()
+        await addLocation(l,idx);
+    }
+      return (
+        <div key={l.location_id}>
+            <form onSubmit={submit}>
               <p>{l.name}</p>
               {/* <p>{image[idx].url}</p> */}
               <img src={image[idx].url} />
               <button type="submit">Select Location</button>
             </form>
           </div>
+      );
+  };
+
+  const renderTrip = () => (
+    <div>
+      <h1>{trip.name}</h1>
+      <h3>User ID: {trip.id}</h3>
+      <h3>Location:</h3>
+      <p>{trip.location.name}</p>
+      <form onSubmit={getLocation}>
+        <input type="text" value={searchLocation} onChange={handleChange} />
+        <button type="submit">Search Location</button>
+      </form>
+      {locations &&
+        locations.map((l, idx) => (
+          renderLocation(l,idx)
         ))}
       <h3>Dates:</h3>
       <p>

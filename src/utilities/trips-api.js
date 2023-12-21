@@ -64,13 +64,13 @@ export async function searchLocation(id, q) {
   }
 }
 
-export async function update(id) {
+export async function update(id, data) {
   const response = await fetch(`${config.BASE_URL}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData),
+    body: JSON.stringify(data),
   });
   if (response.ok) {
     return response.json();
