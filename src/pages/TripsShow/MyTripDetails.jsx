@@ -23,7 +23,7 @@ const MyTripDetails = () => {
 
   async function handleRequest() {
     const tripDetails = await getTrip(id);
-    console.log({tripDetails})
+    // console.log({tripDetails})
     setTrip(tripDetails);
     setIsLoading(false);
   }
@@ -45,9 +45,9 @@ const MyTripDetails = () => {
   const getLocation = async (e) => {
     e.preventDefault();
     try {
-      console.log("search query", searchLocation);
+      // console.log("search query", searchLocation);
       const locationResponse = await findLocation(id, searchLocation);
-      console.log({ locationResponse });
+      // console.log({ locationResponse });
       setLocations(locationResponse.allData);
       setImage(locationResponse.imageData);
     } catch (err) {
@@ -60,7 +60,8 @@ const MyTripDetails = () => {
     try{
       // console.log(searchActivity)
       const activityResponse = await findActivity(id, trip.location.id)
-      console.log({activityResponse})
+      console.log(trip.location.id)
+      // console.log({activityResponse})
       setActivities(activityResponse)
     } catch(err) {}
   }
@@ -86,7 +87,7 @@ const MyTripDetails = () => {
     // navigate(`/trips/${id}`);
   }
 };
-console.log({trip})
+// console.log({trip})
 
   const handleDelete = async () => {
     try {

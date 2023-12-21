@@ -12,7 +12,7 @@ export async function createTrips(data) {
 export async function getTrips() {
   try {
     const data = await tripsAPI.index();
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (err) {
     console.log(err.message);
@@ -54,7 +54,7 @@ export async function findLocation(id, q) {
 
 export async function updateLocation(id, data) {
   try {
-    console.log({data});
+    // console.log({data});
     const updatedLocation = await tripsAPI.update(id, data);
     return updatedLocation;
   } catch (err) {
@@ -66,6 +66,9 @@ export async function updateLocation(id, data) {
 export async function findActivity(id, q) {
   try {
     const activity = await tripsAPI.searchActivity(id, q);
+    // console.log({q});
+    // console.log({ id });
+    console.log(activity.data);
     return activity;
   } catch (err) {
     console.log(err.message);
