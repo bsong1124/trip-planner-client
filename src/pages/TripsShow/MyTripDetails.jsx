@@ -5,7 +5,7 @@ import {
   deleteTrip,
   findLocation,
   findActivity,
-  updateLocation
+  updateLocation,
 } from "../../utilities/trips-service";
 import moment from "moment";
 
@@ -16,11 +16,10 @@ const MyTripDetails = () => {
   const navigate = useNavigate();
   const [searchLocation, setSearchLocation] = useState("");
   const [locations, setLocations] = useState([]);
-  const [image, setImage] = useState([])
+  const [image, setImage] = useState([]);
   // const [searchActivity, setSearchActivity] = useState('')
-  const [activities, setActivities] = useState([])
-  const [activitiesImage, setActivitiesImage] = useState([])
-
+  const [activities, setActivities] = useState([]);
+  const [activitiesImage, setActivitiesImage] = useState([]);
 
   async function handleRequest() {
     const tripDetails = await getTrip(id);
@@ -57,55 +56,61 @@ const MyTripDetails = () => {
   };
 
   const getActivity = async (e) => {
-    e.preventDefault()
-    try{
+    e.preventDefault();
+    try {
       // console.log(searchActivity)
-      const activityResponse = await findActivity(id, trip.location.id)
+      const activityResponse = await findActivity(id, trip.location.id);
       // console.log(trip.location.id)
-      console.log({activityResponse})
-      setActivities(activityResponse.allNearbyData)
-      setActivitiesImage(activityResponse.nearbyDataPromises)
-    } catch(err) {}
-  }
-  console.log({activitiesImage})
+      console.log({ activityResponse });
+      setActivities(activityResponse.allNearbyData);
+      setActivitiesImage(activityResponse.nearbyDataPromises);
+    } catch (err) {}
+  };
+  console.log({ activitiesImage });
   // console.log({activities})
   // console.log(activities[0])
 
-  const addLocation = async (l, idx ) => {
-    console.log({l})
+  const addLocation = async (l, idx) => {
+    console.log({ l });
     try {
-      console.log({image})
+      console.log({ image });
       console.log("it works");
-      const updatedTripData = {...trip, location: {
-        id: l.location_id,
-        name: l.name,
-        image: image[idx].url,
-      },
-    }
-    setTrip(updatedTripData)
-    updateLocation(id, updatedTripData)
-    console.log({updatedTripData})
-    
-    // navigate(`/trips/${id}`);
-  } catch (err) {
-    console.log(err);
-    // navigate(`/trips/${id}`);
-  }
-};
+      const updatedTripData = {
+        ...trip,
+        location: {
+          id: l.location_id,
+          name: l.name,
+          image: image[idx].url,
+        },
+      };
+      setTrip(updatedTripData);
+      updateLocation(id, updatedTripData);
+      console.log({ updatedTripData });
 
-const addActivity = async (a, idx) => {
-  try{
-    const updateTripActivity = {...trip, activity: {
-      name: a.name,
-      address: a.address_obj.address_string,
-      image: activitiesImage[idx].url
+      // navigate(`/trips/${id}`);
+    } catch (err) {
+      console.log(err);
+      // navigate(`/trips/${id}`);
     }
-  }
-  setTrip(updateTripActivity)
-  updateLocation(id, updateTripActivity)
-  } catch(err){}
-}
-// console.log({trip})
+  };
+
+  const addActivity = async (a, idx) => {
+    console.log("working");
+    try {
+      trip.activities = [
+        ...trip.activities,
+        {
+          name: a.name,
+          address: a.address_obj.address_string,
+          image: activitiesImage[idx].url,
+        },
+      ];
+      setTrip(trip);
+      updateLocation(id, trip);
+      navigate(`/trips/${id}`);
+    } catch (err) {}
+  };
+  console.log({ trip });
 
   const handleDelete = async () => {
     try {
@@ -115,38 +120,38 @@ const addActivity = async (a, idx) => {
   };
 
   const renderLocation = (l, idx) => {
-    const submit = async (e) => { 
-      e.preventDefault()
-        await addLocation(l,idx);
-    }
-      return (
-        <div key={l.location_id}>
-            <form onSubmit={submit}>
-              <p>Name: {l.name}</p>
-              <img src={image[idx].url} />
-              <button type="submit">Select Location</button>
-            </form>
-          </div>
-      );
+    const submit = async (e) => {
+      e.preventDefault();
+      await addLocation(l, idx);
+    };
+    return (
+      <div key={l.location_id}>
+        <form onSubmit={submit}>
+          <p>Name: {l.name}</p>
+          <img src={image[idx].url} />
+          <button type="submit">Select Location</button>
+        </form>
+      </div>
+    );
   };
 
   const renderActivity = (a, idx) => {
     const submit = async (e) => {
-      e.preventDefault()
-      await addActivity(a, idx)
-    }
+      e.preventDefault();
+      await addActivity(a, idx);
+    };
     return (
-      <div key ={idx}>
+      <div key={idx}>
         <form onSubmit={submit}>
           <p>Name: {a.name}</p>
           <p>Adress: {a.address_obj.address_string}</p>
           <img src={activitiesImage[idx].url} />
-          <button type='submit'>Add Activity</button>
-      </form>
-      <br/>
+          <button type="submit">Add Activity</button>
+        </form>
+        <br />
       </div>
-    )
-  }
+    );
+  };
 
   const renderTrip = () => (
     <div>
@@ -155,20 +160,17 @@ const addActivity = async (a, idx) => {
       <h3>Location:</h3>
       {trip.location ? (
         <>
-      <p>{trip.location.name}</p>
-      </>
- ) : (
-   <>
-      <form onSubmit={getLocation}>
-        <input type="text" value={searchLocation} onChange={handleChange} />
-        <button type="submit">Search Location</button>
-      </form>
-      {locations &&
-        locations.map((l, idx) => (
-          renderLocation(l,idx)
-          ))}
-          </>
-        )}
+          <p>{trip.location.name}</p>
+        </>
+      ) : (
+        <>
+          <form onSubmit={getLocation}>
+            <input type="text" value={searchLocation} onChange={handleChange} />
+            <button type="submit">Search Location</button>
+          </form>
+          {locations && locations.map((l, idx) => renderLocation(l, idx))}
+        </>
+      )}
       <h3>Dates:</h3>
       <p>
         {moment(trip.startDate).format("ll")} -{" "}
@@ -177,15 +179,18 @@ const addActivity = async (a, idx) => {
       <h3>Description:</h3>
       <p>{trip.description}</p>
       <h3>Activities:</h3>
-      <p>{trip.activities}</p>
+      {trip.activities.map((a) => (
+        <>
+          <p>{a.name}</p>
+          <p>{a.address}</p>
+          <img src={a.image} />
+        </>
+      ))}
+      {/* <p>{trip.activities}</p> */}
       <form onSubmit={getActivity}>
-        <button type='submit'>Search Activities</button>
+        <button type="submit">Search Activities</button>
       </form>
-      {activities && 
-        activities.map((a, idx) => (
-          renderActivity(a, idx)
-        ))
-        }
+      {activities && activities.map((a, idx) => renderActivity(a, idx))}
       <button onClick={handleDelete}>Delete Trip</button>
     </div>
   );
