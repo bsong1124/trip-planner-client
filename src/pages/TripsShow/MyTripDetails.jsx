@@ -65,6 +65,7 @@ const MyTripDetails = () => {
       setActivities(activityResponse)
     } catch(err) {}
   }
+  console.log(activities)
 
   const addLocation = async (l, idx ) => {
     console.log({l})
