@@ -147,6 +147,14 @@ const MyTripDetails = () => {
       <form onSubmit={getActivity}>
         <button type='submit'>Search Activities</button>
       </form>
+      {activities && 
+        activities.map((a, idx) => {
+          <>
+          <p>{a.name}</p>
+          <p>{a.address_obj.address_string}</p>
+          </>
+        })
+        }
       <button onClick={handleDelete}>Delete Trip</button>
     </div>
   );
