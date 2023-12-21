@@ -35,7 +35,7 @@ const MyTrips = () => {
                       <div className="trips-card">
                         {t.name}
                         <br />
-                        {t.location?.name ? t.location.name : "No location yet"}
+                        {t.location ? t.location.name : "No location yet"}
                         <br />
                         Dates:
                         {moment(t.startDate).format("ll")} -{" "}

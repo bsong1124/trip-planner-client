@@ -42,9 +42,9 @@ export async function deleteTrip(id) {
   }
 }
 
-export async function findLocation(id, q) {
+export async function findLocations(id, q) {
   try {
-    const location = await tripsAPI.searchLocation(id, q);
+    const location = await tripsAPI.searchLocations(id, q);
     return location;
   } catch (err) {
     console.log(err.message);
