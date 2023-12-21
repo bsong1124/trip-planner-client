@@ -134,7 +134,7 @@ const MyTripDetails = () => {
         <div className="locations" key={l.location_id}>
           <form onSubmit={submit}>
               <div className="location-item">
-                <img className="img-details" src={images[idx].url} alt={l.name} />
+                <img className="img-details" src={image[idx].url} alt={l.name} />
                 <p className="location-name">{l.name}</p>
                 <button className="btn btn-primary select-btn" type="submit">Select Location</button>
               </div>
