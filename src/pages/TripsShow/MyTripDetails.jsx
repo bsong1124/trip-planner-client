@@ -4,18 +4,23 @@ import {
   getTrip,
   deleteTrip,
   findLocation,
-  updateLocation,
+  findActivity,
+  updateLocation
 } from "../../utilities/trips-service";
 import moment from "moment";
+import { find } from "../../../../trip-planner-server/models/trip";
 
 const MyTripDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [trip, setTrip] = useState(null);
   const { id } = useParams();
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
+  const [searchLocation, setSearchLocation] = useState("");
   const [locations, setLocations] = useState([]);
-  const [image, setImage] = useState([]);
+  const [image, setImage] = useState([])
+  // const [searchActivity, setSearchActivity] = useState('')
+  const [activities, setActivities] = useState([])
+
 
   async function handleRequest() {
     const tripDetails = await getTrip(id);
@@ -34,14 +39,14 @@ const MyTripDetails = () => {
   );
 
   const handleChange = (e) => {
-    setSearch(e.target.value);
+    setSearchLocation(e.target.value);
   };
 
   const getLocation = async (e) => {
     e.preventDefault();
     try {
-      console.log("search query", search);
-      const locationResponse = await findLocation(id, search);
+      console.log("search query", searchLocation);
+      const locationResponse = await findLocation(id, searchLocation);
       console.log({ locationResponse });
       setLocations(locationResponse.allData);
       setImage(locationResponse.imageData);
@@ -49,8 +54,20 @@ const MyTripDetails = () => {
       console.log("error");
     }
   };
+
+  const getActivity = async (e) => {
+    e.preventDefault()
+    try{
+      // console.log(searchActivity)
+      const activityResponse = await findActivity(id, trip.location.id)
+      console.log({activityResponse})
+      setActivities(activityResponse)
+    } catch(err) {}
+  }
+
   // console.log({ locations });
   // console.log({ image });
+
 
   // handleSubmit for adding a location
   const addLocation = async (e) => {
@@ -86,7 +103,7 @@ const MyTripDetails = () => {
       <h3>Location:</h3>
       <p>{trip.location}</p>
       <form onSubmit={getLocation}>
-        <input type="text" value={search} onChange={handleChange} />
+        <input type="text" value={searchLocation} onChange={handleChange} />
         <button type="submit">Search Location</button>
       </form>
       {locations &&
@@ -109,6 +126,9 @@ const MyTripDetails = () => {
       <p>{trip.description}</p>
       <h3>Activities:</h3>
       <p>{trip.activities}</p>
+      <form onSubmit={getActivity}>
+        <button type='submit'>Search Activities</button>
+      </form>
       <button onClick={handleDelete}>Delete Trip</button>
     </div>
   );
