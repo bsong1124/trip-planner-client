@@ -71,7 +71,7 @@ export async function update(id, formData) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(formData),
-  });
+  }); 
   if (response.ok) {
     return response.json();
   } else {

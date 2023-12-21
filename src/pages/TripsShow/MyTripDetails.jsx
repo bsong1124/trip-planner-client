@@ -18,7 +18,8 @@ const MyTripDetails = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [locations, setLocations] = useState([]);
   const [image, setImage] = useState([])
-  const [searchActivity, setSearchActivity] = useState([])
+  // const [searchActivity, setSearchActivity] = useState('')
+  const [activities, setActivities] = useState([])
 
   async function handleRequest() {
     const tripDetails = await getTrip(id);
@@ -54,12 +55,13 @@ const MyTripDetails = () => {
     }
   };
 
-  const getActivities = async (e) => {
+  const getActivity = async (e) => {
     e.preventDefault()
     try{
-      console.log(searchActivity)
-      const activityResponse = await findActivity(id, searchActivity)
+      // console.log(searchActivity)
+      const activityResponse = await findActivity(id, trip.location.id)
       console.log({activityResponse})
+      setActivities(activityResponse)
     } catch(err) {}
   }
 
@@ -106,6 +108,9 @@ const MyTripDetails = () => {
       <p>{trip.description}</p>
       <h3>Activities:</h3>
       <p>{trip.activities}</p>
+      <form onSubmit={getActivity}>
+        <button type='submit'>Search Activities</button>
+      </form>
       <button onClick={handleDelete}>Delete Trip</button>
     </div>
   );
