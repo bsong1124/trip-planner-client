@@ -61,3 +61,13 @@ export async function updateLocation(id, data) {
     throw err;
   }
 }
+
+export async function findActivity(id, q) {
+  try {
+    const activity = await tripsAPI.searchActivity(id, q);
+    return activity;
+  } catch (err) {
+    console.log(err.message);
+    throw err;
+  }
+}
