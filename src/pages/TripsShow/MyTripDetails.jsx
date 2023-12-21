@@ -60,12 +60,13 @@ const MyTripDetails = () => {
     try{
       // console.log(searchActivity)
       const activityResponse = await findActivity(id, trip.location.id)
-      console.log(trip.location.id)
+      // console.log(trip.location.id)
       // console.log({activityResponse})
       setActivities(activityResponse)
     } catch(err) {}
   }
-  console.log(activities)
+  console.log({activities})
+  console.log(activities[0])
 
   const addLocation = async (l, idx ) => {
     console.log({l})
@@ -149,10 +150,12 @@ const MyTripDetails = () => {
       </form>
       {activities && 
         activities.map((a, idx) => {
-          <>
+          return (
+            <div key ={idx}>
           <p>{a.name}</p>
           <p>{a.address_obj.address_string}</p>
-          </>
+          </div>
+            )
         })
         }
       <button onClick={handleDelete}>Delete Trip</button>

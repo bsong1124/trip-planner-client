@@ -90,12 +90,12 @@ export async function searchActivity(id, q) {
       },
     }
   );
-  console.log(`${config.BASE_URL}/${id}/activities/search?q=${q}`);
+  // console.log(`${config.BASE_URL}/${id}/activities/search?q=${q}`);
   // console.log({ q });
   // console.log({ response });
   if (response.ok) {
     const activityData = await response.json();
-    console.log({ activityData });
+    // console.log({ activityData });
     return activityData;
   } else {
     console.log(err.message);

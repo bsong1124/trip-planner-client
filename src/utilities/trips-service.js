@@ -68,7 +68,7 @@ export async function findActivity(id, q) {
     const activity = await tripsAPI.searchActivity(id, q);
     // console.log({q});
     // console.log({ id });
-    console.log(activity.data);
+    // console.log(activity);
     return activity;
   } catch (err) {
     console.log(err.message);
