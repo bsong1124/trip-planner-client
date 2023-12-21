@@ -8,7 +8,6 @@ import {
   updateLocation
 } from "../../utilities/trips-service";
 import moment from "moment";
-import { find } from "../../../../trip-planner-server/models/trip";
 
 const MyTripDetails = () => {
   const [isLoading, setIsLoading] = useState(true);
