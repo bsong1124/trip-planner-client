@@ -3,14 +3,14 @@
     font-family: Poppins;
 }
 
-.trips-card {
-    border: 1px solid #ddd;
-    padding: 15px;
-    text-align: center;
-}
-
-.trips-list {
+/* .trips-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-}
+} */
+
+/* .trips-card {
+    border: 1px solid #ddd;
+    padding: 15px;
+    text-align: center;
+} */

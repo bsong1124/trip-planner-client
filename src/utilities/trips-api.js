@@ -47,7 +47,7 @@ export async function destroy(id) {
   }
 }
 
-export async function searchLocation(id, q) {
+export async function searchLocations(id, q) {
   const response = await fetch(`${config.BASE_URL}/${id}/search?q=${q}`, {
     method: "GET",
     headers: {

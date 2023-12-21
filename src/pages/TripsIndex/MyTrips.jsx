@@ -14,39 +14,60 @@ const MyTrips = () => {
   const handleRequest = async () => {
     const tripsData = await getTrips();
     if (tripsData) {
-       setTrips(tripsData.filter((trip) => trip.id === user.sub.slice(14)))
+      setTrips(tripsData.filter((trip) => trip.id === user.sub.slice(14)));
     }
-    console.log({tripsData})
+    console.log({ tripsData });
     setIsLoading(false);
   };
+
+  // console.log({trips})
 
   const sortedTrips = trips.sort(
     (a, b) => new Date(a.startDate) - new Date(b.startDate)
   );
   const renderTrips = () => (
-    <>
-      <h1>Upcoming Trips</h1>
-      <section className="trips-list">
-        {/* Refactor conditional to read as trips id = user id */}
+    <section className="mx-6">
+      <h2 className="text-4xl font-bold text-emerald-500 mb-4">
+        Upcoming Trips
+      </h2>
+      <div id="trips" className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-4 trips-list">
         {trips.length
           ? sortedTrips.map((t) => (
-                  <div key={t._id}>
-                    <Link to={`/trips/${t._id}`}>
-                      <div className="trips-card">
-                        {t.name}
-                        <br />
-                        {t.location?.name ? t.location.name : "No location yet"}
-                        <br />
-                        Dates:
-                        {moment(t.startDate).format("ll")} -{" "}
-                        {moment(t.endDate).format("ll")}
-                      </div>
-                    </Link>
+              <div id="card" key={t._id} className="trips-card">
+                <Link to={`/trips/${t._id}`}>
+                  {t.location ? (
+                    <img
+                      src={t.location.image}
+                      alt={`Photo of ${t.location.name}`}
+                      className="rounded-t-lg"
+                    />
+                  ) : (
+                    // change null to fallback image
+                    <img
+                      src="../../../public/images/location-image-fallback.png"
+                      alt="Fallback photo"
+                      className="rounded-t-lg"
+                    />
+                  )}
+                  <div
+                    id="card-bottom"
+                    className="bg-lime-100 rounded-b-lg pt-4 px-6 pb-6 shadow-2xl hover:bg-emerald-200"
+                  >
+                    <h3 className="text-xl font-semibold">{t.name}</h3>
+                    {t.location && <p>{t.location.name}</p>}
+                    {t.startDate && (
+                      <span>{moment(t.startDate).format("ll")}</span>
+                    )}
+                    {t.startDate && t.endDate ? <span> - </span> : null}
+                    {t.endDate && <span>{moment(t.endDate).format("ll")}</span>}
+                    {/* <Link to={`/trips/${t._id}`} className="underline pt-2">View Trip</Link> */}
                   </div>
+                </Link>
+              </div>
             ))
           : "No trips yet"}
-      </section>
-    </>
+      </div>
+    </section>
   );
 
   const renderLoading = () => (
@@ -60,16 +81,16 @@ const MyTrips = () => {
   }, [user]);
 
   return (
-    <section>
+    <>
       {isAuthenticated && !loadingAuth ? (
-        <div>
+        <>
           <NewTripForm updateTripList={handleRequest} />
           {isLoading ? renderLoading() : renderTrips()}
-        </div>
+        </>
       ) : (
         "Log in to create and view trips!"
       )}
-    </section>
+    </>
   );
 };
 
