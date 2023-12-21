@@ -30,7 +30,7 @@ const MyTrips = () => {
       <h2 className="text-4xl font-bold text-emerald-500 mb-4">
         Upcoming Trips
       </h2>
-      <div id="trips" className="grid lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-4 trips-list">
+      <div id="trips" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 trips-list">
         {trips.length
           ? sortedTrips.map((t) => (
               <div id="card" key={t._id} className="trips-card">
@@ -51,7 +51,7 @@ const MyTrips = () => {
                   )}
                   <div
                     id="card-bottom"
-                    className="bg-lime-100 rounded-b-lg pt-4 px-6 pb-6 shadow-2xl hover:bg-emerald-200"
+                    className="bg-lime-100 rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-200"
                   >
                     <h3 className="text-xl font-semibold">{t.name}</h3>
                     {t.location && <p>{t.location.name}</p>}
@@ -88,7 +88,9 @@ const MyTrips = () => {
           {isLoading ? renderLoading() : renderTrips()}
         </>
       ) : (
-        "Log in to create and view trips!"
+        <h2 className="text-2xl text-center">
+        Log in to create and view trips!
+        </h2>
       )}
     </>
   );
