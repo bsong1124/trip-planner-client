@@ -8,34 +8,34 @@ import LogoutButton from "../Auth/LogoutButton";
 const Header = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   return (
-    <header className="flex items-center justify-around font-header font-extralight text-xl text-emerald-500 m-8">
-      <nav className="flex space-between ml-8 Nav">
+    <header className="flex items-center justify-around font-nav font-extralight text-xl text-emerald-500 m-8 bg-transparent">
+      <nav id="left-nav" className="flex items-center space-between ml-8">
         <Link to="/">
           <img className="w-16 logo-img" src="../../../images/favicon.png" />{" "}
         </Link>
         {/* The default UI (brand logo and app name)*/}
         <Link
-          className="btn-nav p-1 m-2.5 nav-el"
+          className="btn-nav m-2.5"
           to="/"
         >
           Home
           {/* <img src={brandImage} /> */}
         </Link>
         <Link
-          className="btn-nav p-1 m-2.5 nav-el"
+          className="btn-nav m-2.5"
           to="/trips"
         >
           My Trips
         </Link>
         {/* <Link to="/trips/:id/activities">Activities</Link> */}
         <Link
-          className="btn-nav p-1 m-2.5 nav-el"
+          className="btn-nav m-2.5"
           to="/about"
         >
           About
         </Link>
       </nav>
-      <div className="flex justify-end auth-buttons">
+      <nav id="right-nav" className="flex justify-end">
         {/* Nested ternary to conditionally render multiple states */}
         {!isLoading ? (
           // if the loading variable is true - the ! will convert it to false and 'null' will be returned
@@ -44,7 +44,7 @@ const Header = () => {
           isAuthenticated ? (
             <>
               {/* <Link to="/profile">Profile</Link> */}
-              <Link className="p-1 m-2.5 nav-el" to="/profile">
+              <Link className=" mr-2" to="/profile">
                 <img
                   src={user.picture}
                   alt={`Picture of ${user.name}`}
@@ -57,7 +57,7 @@ const Header = () => {
             <LoginButton />
           )
         ) : null}
-      </div>
+      </nav>
     </header>
   );
 };

@@ -9,15 +9,20 @@ const Home = () => {
 
   return (
     <div className="home-wrapper">
-      <h1 className="header-title">Welcome to Journey Craft</h1>
-      <p className="mb-4">
+      <h1 className="text-6xl font-heading font-medium text-center text-emerald-500 m-4">Welcome to Journey Craft</h1>
+      <p className="mb-6">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.
       </p>
       {isAuthenticated && !loadingAuth ? (
-        <Link to="/trips" className="btn">
-          My Trips
-        </Link>
+        <div className="flex justify-center">
+          <Link to="/trips" className="btn btn-primary mr-4">
+            My Trips
+          </Link>
+          <Link to="/about" className="btn btn-secondary">
+            Learn more
+          </Link>
+        </div>
       ) : (
         <LoginButton />
       )}
