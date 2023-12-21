@@ -8,28 +8,28 @@ import LogoutButton from "../Auth/LogoutButton";
 const Header = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   return (
-    <header className="flex items-center justify-around font-nav font-extralight text-xl text-emerald-500 m-8 bg-transparent">
-      <nav id="left-nav" className="flex items-center space-between ml-8">
+    <header className="flex items-center justify-around font-nav font-extralight text-sm sm:text-xl text-emerald-500 m-2 sm:m-8">
+      <nav id="left-nav" className="flex items-center justify-between">
         <Link to="/">
           <img className="w-16 logo-img" src="../../../images/favicon.png" />{" "}
         </Link>
         {/* The default UI (brand logo and app name)*/}
         <Link
-          className="btn-nav m-2.5"
+          className="btn-nav sm:m-2.5"
           to="/"
         >
           Home
           {/* <img src={brandImage} /> */}
         </Link>
         <Link
-          className="btn-nav m-2.5"
+          className="btn-nav m-0.25 sm:m-2.5"
           to="/trips"
         >
           My Trips
         </Link>
         {/* <Link to="/trips/:id/activities">Activities</Link> */}
         <Link
-          className="btn-nav m-2.5"
+          className="btn-nav m-0.25 sm:m-2.5"
           to="/about"
         >
           About
@@ -48,7 +48,7 @@ const Header = () => {
                 <img
                   src={user.picture}
                   alt={`Picture of ${user.name}`}
-                  className="w-12 rounded-full avatar"
+                  className="w-12 rounded-full avatar invisible sm:visible"
                 />
               </Link>
               <LogoutButton />
