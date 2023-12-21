@@ -4,7 +4,7 @@ import {
   getTrip,
   deleteTrip,
   findLocation,
-  updateLocation
+  updateLocation,
 } from "../../utilities/trips-service";
 import moment from "moment";
 
@@ -15,7 +15,7 @@ const MyTripDetails = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
   const [locations, setLocations] = useState([]);
-  const [image, setImage] = useState([])
+  const [image, setImage] = useState([]);
 
   async function handleRequest() {
     const tripDetails = await getTrip(id);
@@ -44,20 +44,33 @@ const MyTripDetails = () => {
       const locationResponse = await findLocation(id, search);
       console.log({ locationResponse });
       setLocations(locationResponse.allData);
-      setImage(locationResponse.imageData)
-
+      setImage(locationResponse.imageData);
     } catch (err) {
       console.log("error");
     }
   };
-  console.log({locations})
-  console.log({image})
+  // console.log({ locations });
+  // console.log({ image });
 
+  // handleSubmit for adding a location
   const addLocation = async (e) => {
     e.preventDefault();
-    const tripData = await getTrip(id)
-    console.log(tripData)
-  }
+    const updateTrip = await updateLocation(id);
+    try {
+      console.log("it works");
+      // const updatedTripData = {...trip, location: {
+      //     id: ,
+      //     name: ,
+      //     image: ,
+      //   },
+      // }
+
+      // navigate(`/trips/${id}`);
+    } catch (err) {
+      console.log(err);
+      // navigate(`/trips/${id}`);
+    }
+  };
 
   const handleDelete = async () => {
     try {
