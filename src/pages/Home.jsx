@@ -9,7 +9,7 @@ const Home = () => {
 
   return (
     <div className="home-wrapper">
-      <h1 className="header-title">Welcome to Journey Craft</h1>
+      <h1 className="text-6xl font-heading font-medium text-center text-emerald-500 m-4">Welcome to Journey Craft</h1>
       <p className="mb-6">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua.

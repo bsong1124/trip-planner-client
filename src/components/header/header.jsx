@@ -8,7 +8,7 @@ import LogoutButton from "../Auth/LogoutButton";
 const Header = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   return (
-    <header className="flex items-center justify-around font-header font-extralight text-xl text-emerald-500 m-8 bg-transparent">
+    <header className="flex items-center justify-around font-nav font-extralight text-xl text-emerald-500 m-8 bg-transparent">
       <nav id="left-nav" className="flex items-center space-between ml-8">
         <Link to="/">
           <img className="w-16 logo-img" src="../../../images/favicon.png" />{" "}
