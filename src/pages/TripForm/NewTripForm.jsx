@@ -64,7 +64,7 @@ const NewTripForm = ({ updateTripList }) => {
   };
 
   return (
-    <section className="NewTripForm">
+    <section className="mb-14 NewTripForm">
       <h2>New Trip</h2>
       <form onSubmit={handleSubmit}>
         <input
