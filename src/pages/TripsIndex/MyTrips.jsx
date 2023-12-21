@@ -13,7 +13,10 @@ const MyTrips = () => {
 
   const handleRequest = async () => {
     const tripsData = await getTrips();
-    if (tripsData) setTrips(tripsData);
+    if (tripsData) {
+       setTrips(tripsData.filter((trip) => trip.id === user.sub.slice(14)))
+    }
+    console.log({tripsData})
     setIsLoading(false);
   };
 
@@ -27,14 +30,12 @@ const MyTrips = () => {
         {/* Refactor conditional to read as trips id = user id */}
         {trips.length
           ? sortedTrips.map((t) => (
-              <>
-                {t.id === user.sub.slice(14) ? (
                   <div key={t._id}>
                     <Link to={`/trips/${t._id}`}>
                       <div className="trips-card">
                         {t.name}
                         <br />
-                        {t.location ? t.location : "No location yet"}
+                        {t.location?.name ? t.location.name : "No location yet"}
                         <br />
                         Dates:
                         {moment(t.startDate).format("ll")} -{" "}
@@ -42,8 +43,6 @@ const MyTrips = () => {
                       </div>
                     </Link>
                   </div>
-                ) : null}
-              </>
             ))
           : "No trips yet"}
       </section>
@@ -57,8 +56,8 @@ const MyTrips = () => {
   );
 
   useEffect(() => {
-    handleRequest();
-  }, []);
+    if (user) handleRequest();
+  }, [user]);
 
   return (
     <section>
