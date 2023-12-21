@@ -19,6 +19,7 @@ const MyTripDetails = () => {
   const [image, setImage] = useState([])
   // const [searchActivity, setSearchActivity] = useState('')
   const [activities, setActivities] = useState([])
+  const [activitiesImage, setActivitiesImage] = useState([])
 
 
   async function handleRequest() {
@@ -61,12 +62,14 @@ const MyTripDetails = () => {
       // console.log(searchActivity)
       const activityResponse = await findActivity(id, trip.location.id)
       // console.log(trip.location.id)
-      // console.log({activityResponse})
-      setActivities(activityResponse)
+      console.log({activityResponse})
+      setActivities(activityResponse.allNearbyData)
+      setActivitiesImage(activityResponse.nearbyDataPromises)
     } catch(err) {}
   }
-  console.log({activities})
-  console.log(activities[0])
+  console.log({activitiesImage})
+  // console.log({activities})
+  // console.log(activities[0])
 
   const addLocation = async (l, idx ) => {
     console.log({l})
@@ -89,6 +92,19 @@ const MyTripDetails = () => {
     // navigate(`/trips/${id}`);
   }
 };
+
+const addActivity = async (a, idx) => {
+  try{
+    const updateTripActivity = {...trip, activity: {
+      name: a.name,
+      address: a.address_obj.address_string,
+      image: activitiesImage[idx].url
+    }
+  }
+  setTrip(updateTripActivity)
+  updateLocation(id, updateTripActivity)
+  } catch(err){}
+}
 // console.log({trip})
 
   const handleDelete = async () => {
@@ -106,14 +122,31 @@ const MyTripDetails = () => {
       return (
         <div key={l.location_id}>
             <form onSubmit={submit}>
-              <p>{l.name}</p>
-              {/* <p>{image[idx].url}</p> */}
+              <p>Name: {l.name}</p>
               <img src={image[idx].url} />
               <button type="submit">Select Location</button>
             </form>
           </div>
       );
   };
+
+  const renderActivity = (a, idx) => {
+    const submit = async (e) => {
+      e.preventDefault()
+      await addActivity(a, idx)
+    }
+    return (
+      <div key ={idx}>
+        <form onSubmit={submit}>
+          <p>Name: {a.name}</p>
+          <p>Adress: {a.address_obj.address_string}</p>
+          <img src={activitiesImage[idx].url} />
+          <button type='submit'>Add Activity</button>
+      </form>
+      <br/>
+      </div>
+    )
+  }
 
   const renderTrip = () => (
     <div>
@@ -149,14 +182,9 @@ const MyTripDetails = () => {
         <button type='submit'>Search Activities</button>
       </form>
       {activities && 
-        activities.map((a, idx) => {
-          return (
-            <div key ={idx}>
-          <p>{a.name}</p>
-          <p>{a.address_obj.address_string}</p>
-          </div>
-            )
-        })
+        activities.map((a, idx) => (
+          renderActivity(a, idx)
+        ))
         }
       <button onClick={handleDelete}>Delete Trip</button>
     </div>
