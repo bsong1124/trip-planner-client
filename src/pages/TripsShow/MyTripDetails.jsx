@@ -117,7 +117,12 @@ console.log({trip})
       <h1>{trip.name}</h1>
       <h3>User ID: {trip.id}</h3>
       <h3>Location:</h3>
+      {trip.location ? (
+        <>
       <p>{trip.location.name}</p>
+      </>
+ ) : (
+   <>
       <form onSubmit={getLocation}>
         <input type="text" value={searchLocation} onChange={handleChange} />
         <button type="submit">Search Location</button>
@@ -125,7 +130,9 @@ console.log({trip})
       {locations &&
         locations.map((l, idx) => (
           renderLocation(l,idx)
-        ))}
+          ))}
+          </>
+        )}
       <h3>Dates:</h3>
       <p>
         {moment(trip.startDate).format("ll")} -{" "}
