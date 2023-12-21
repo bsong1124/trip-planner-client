@@ -78,3 +78,20 @@ export async function update(id, formData) {
     throw new Error("Invalid PUT Request");
   }
 }
+
+export async function searchActivity(id, q) {
+  const response = await fetch(`${config.BASE_URL}/${id}/activities/search?q=${q}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  // console.log("RESPONSE", response);
+  if (response.ok) {
+    const activityData = await response.json();
+    // console.log({ activityData });
+    return activityData;
+  } else {
+    console.log(err.message);
+  }
+}
