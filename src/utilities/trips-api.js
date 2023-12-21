@@ -17,7 +17,7 @@ export async function create(data) {
 }
 
 export async function index() {
-  console.log(config.BASE_URL);
+  // console.log(config.BASE_URL);
   const res = await fetch(config.BASE_URL, { method: "GET" });
   if (res.ok) {
     return res.json();
@@ -80,6 +80,7 @@ export async function update(id, data) {
 }
 
 export async function searchActivity(id, q) {
+  // console.log({ q });
   const response = await fetch(
     `${config.BASE_URL}/${id}/activities/search?q=${q}`,
     {
@@ -89,7 +90,9 @@ export async function searchActivity(id, q) {
       },
     }
   );
-  // console.log("RESPONSE", response);
+  // console.log(`${config.BASE_URL}/${id}/activities/search?q=${q}`);
+  // console.log({ q });
+  // console.log({ response });
   if (response.ok) {
     const activityData = await response.json();
     // console.log({ activityData });
