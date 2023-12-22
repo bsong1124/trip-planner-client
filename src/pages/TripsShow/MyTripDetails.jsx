@@ -209,14 +209,18 @@ const MyTripDetails = () => {
       {/* TODO: conditionally render activities only if location is set */}
       {trip.location ? (
         <>
-          <h3>Activities:</h3>
+          <h3 className="text-3xl sm:text-4xl font-bold text-emerald-500 ml-4 mb-4">Current Activities Planned:</h3>
+          <div className="activity-grid">
           {trip.activities.map((a) => (
-            <>
-              <p>{a.name}</p>
-              <p>{a.address}</p>
-              <img src={a.image} />
-            </>
+            <div key={a.id}>
+              <div className="activity-card">
+              <p className="activity-name">{a.name}</p>
+              <p className="activity-address">{a.address}</p>
+              <img className="activity-image" src={a.image} />
+              </div>
+            </div>
           ))}
+          </div>
           <form onSubmit={getActivity}>
             <button type="submit" className="btn btn-primary p-2">
               Search Activities
