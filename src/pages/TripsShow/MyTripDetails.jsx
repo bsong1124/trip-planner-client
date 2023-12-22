@@ -7,6 +7,7 @@ import {
   findActivity,
   updateLocation,
 } from "../../utilities/trips-service";
+import './MyTripsDetails.css'
 import moment from "moment";
 
 const MyTripDetails = () => {
@@ -126,11 +127,13 @@ const MyTripDetails = () => {
       await addLocation(l, idx);
     };
     return (
-      <div key={l.location_id}>
+      <div className='locations' key={l.location_id}>
         <form onSubmit={submit}>
-          <p>Name: {l.name}</p>
-          <img src={image[idx].url} />
-          <button type="submit">Select Location</button>
+          <div className='location-item'>
+          <img className='img-details' src={image[idx].url} />
+          <p className='location-name'>{l.name}</p>
+          <button className='btn btn-primary' type="submit">Select Location</button>
+        </div>
         </form>
       </div>
     );
@@ -159,30 +162,37 @@ const MyTripDetails = () => {
   };
 
   const renderTrip = () => (
-    <div>
-      <h1>{trip.name}</h1>
-      <h3>User ID: {trip.id}</h3>
-      <h3>Location:</h3>
+    <div className="trip-container">
+      <h1 className="details-name">{trip.name.toUpperCase()}</h1>
       {trip.location ? (
-        <>
+        <div className="location-section">
+      <h3>Location:</h3>
           <p>{trip.location.name}</p>
-        </>
+          <img src={trip.location.image} />
+          </div>
       ) : (
-        <>
+        <div className="search-section">
+          <h3>Enter your location: </h3>
           <form onSubmit={getLocation}>
-            <input type="text" value={searchLocation} onChange={handleChange} />
-            <button type="submit">Search Location</button>
+            <input className='input-field' type="text" value={searchLocation} onChange={handleChange} />
+            <button className='btn btn-primary p-2' type="submit">Search Location</button>
           </form>
+          <div className='select-location'>
           {locations && locations.map((l, idx) => renderLocation(l, idx))}
-        </>
+        </div>
+        </div>
       )}
+      <div className='dates-section'>
       <h3>Dates:</h3>
       <p>
         {moment(trip.startDate).format("ll")} -{" "}
         {moment(trip.endDate).format("ll")}
       </p>
+      </div>
+      <div className='description-section'>
       <h3>Description:</h3>
       <p>{trip.description}</p>
+      </div>
       <h3>Activities:</h3>
       {trip.activities.map((a) => (
         <>
@@ -191,12 +201,11 @@ const MyTripDetails = () => {
           <img src={a.image} />
         </>
       ))}
-      {/* <p>{trip.activities}</p> */}
       <form onSubmit={getActivity}>
         <button type="submit">Search Activities</button>
       </form>
       {activities && activities.map((a, idx) => renderActivity(a, idx))}
-      <button onClick={handleDelete}>Delete Trip</button>
+      <button className='btn btn-primary p-2' onClick={handleDelete}>Delete Trip</button>
     </div>
   );
 
