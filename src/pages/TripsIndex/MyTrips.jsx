@@ -1,4 +1,3 @@
-import "./MyTrips.css";
 import moment from "moment";
 import { useState, useEffect } from "react";
 import { getTrips } from "../../utilities/trips-service";
@@ -21,11 +20,8 @@ const MyTrips = () => {
         )
       );
     }
-    // console.log({ tripsData });
     setIsLoading(false);
   };
-
-  // console.log({trips})
 
   const sortedTrips = trips.sort(
     (a, b) => new Date(a.startDate) - new Date(b.startDate)
@@ -70,7 +66,6 @@ const MyTrips = () => {
                     )}
                     {t.startDate && t.endDate ? <span> - </span> : null}
                     {t.endDate && <span>{moment(t.endDate).format("ll")}</span>}
-                    {/* <Link to={`/trips/${t._id}`} className="underline pt-2">View Trip</Link> */}
                   </div>
                 </Link>
               </div>

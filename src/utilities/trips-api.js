@@ -17,7 +17,6 @@ export async function create(data) {
 }
 
 export async function index() {
-  // console.log(config.BASE_URL);
   const res = await fetch(config.BASE_URL, { method: "GET" });
   if (res.ok) {
     return res.json();
@@ -54,10 +53,8 @@ export async function searchLocations(id, q) {
       "Content-Type": "application/json",
     },
   });
-  // console.log("RESPONSE", response);
   if (response.ok) {
     const locationData = await response.json();
-    // console.log({ locationData });
     return locationData;
   } else {
     console.log(err.message);
@@ -90,9 +87,6 @@ export async function searchActivity(id, q) {
       },
     }
   );
-  // console.log(`${config.BASE_URL}/${id}/activities/search?q=${q}`);
-  // console.log({ q });
-  // console.log({ response });
   if (response.ok) {
     const activityData = await response.json();
     console.log({ activityData });

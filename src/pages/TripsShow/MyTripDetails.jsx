@@ -18,13 +18,11 @@ const MyTripDetails = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [locations, setLocations] = useState([]);
   const [image, setImage] = useState([]);
-  // const [searchActivity, setSearchActivity] = useState('')
   const [activities, setActivities] = useState([]);
   const [activitiesImage, setActivitiesImage] = useState([]);
 
   async function handleRequest() {
     const tripDetails = await getTrip(id);
-    // console.log({tripDetails})
     setTrip(tripDetails);
     setIsLoading(false);
   }
@@ -59,18 +57,12 @@ const MyTripDetails = () => {
   const getActivity = async (e) => {
     e.preventDefault();
     try {
-      // console.log(searchActivity)
       const activityResponse = await findActivity(id, trip.location.id);
-      // console.log(trip.location.id)
-      // console.log({ activityResponse });
       console.log({ activityResponse });
       setActivities(activityResponse.allNearbyData);
       setActivitiesImage(activityResponse.nearbyDataPromises);
     } catch (err) {}
   };
-  // console.log({ activitiesImage });
-  // console.log({activities})
-  // console.log(activities[0])
 
   const addLocation = async (l, idx) => {
     console.log({ l });
@@ -88,11 +80,8 @@ const MyTripDetails = () => {
       setTrip(updatedTripData);
       updateLocation(id, updatedTripData);
       console.log({ updatedTripData });
-
-      // navigate(`/trips/${id}`);
     } catch (err) {
       console.log(err);
-      // navigate(`/trips/${id}`);
     }
   };
 
@@ -112,7 +101,6 @@ const MyTripDetails = () => {
       navigate(`/trips/${id}`);
     } catch (err) {}
   };
-  // console.log({ trip });
 
   const handleDelete = async () => {
     try {
@@ -177,7 +165,6 @@ const MyTripDetails = () => {
         </div>
       ) : (
         <div className="search-section">
-          {/* <h3>Enter your location: </h3> */}
           <form onSubmit={getLocation}>
             <input
               className="input-field"
@@ -196,11 +183,6 @@ const MyTripDetails = () => {
         </div>
       )}
       <div className="dates-section">
-        {/* <h3 className="text-2xl">Dates:</h3>
-        <p>
-          {moment(trip.startDate).format("ll")} -{" "}
-          {moment(trip.endDate).format("ll")}
-        </p> */}
         {trip.startDate || trip.endDate ? <h3 className="text-2xl">Dates:</h3> : null}
         {trip.startDate && (
         <span>{moment(trip.startDate).format("ll")}</span>
@@ -213,7 +195,6 @@ const MyTripDetails = () => {
         <h3 className="text-2xl">Description:</h3>
         <p>{trip.description}</p>
       </div>
-      {/* TODO: conditionally render activities only if location is set */}
       {trip.location ? (
         <>
           <h3 className="text-3xl sm:text-4xl font-bold text-emerald-500 ml-4 mb-4">Current Activities Planned:</h3>
