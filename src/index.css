@@ -11,7 +11,7 @@
 @layer components {
   /* standard button */
   .btn {
-    @apply rounded-lg px-10 py-3 text-base cursor-pointer;
+    @apply rounded px-10 py-3 text-base cursor-pointer;
   }
 
   .btn-primary {
@@ -19,14 +19,10 @@
   }
 
   .btn-secondary {
-    @apply bg-amber-50 hover:bg-emerald-100 text-emerald-500 border border-emerald-500;
+    @apply bg-yellow-50 hover:bg-emerald-100 text-emerald-500 border border-emerald-500;
   }
 
   .btn-nav {
     @apply hover:bg-emerald-500 hover:text-amber-50 hover:rounded px-2 py-1;
   }
-}
-
-body {
-  background-color:#edf2c1;
 }
