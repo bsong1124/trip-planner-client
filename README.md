@@ -74,4 +74,4 @@ The team wishes to express profound appreciation to TripAdvisor for providing an
 - **Fallback image for activities search**
 - **Improved design consistency from page to page**
 - **Improved variable naming for semantic understanding**
-- **Activities without and image dont render a button to add**
+- **Resolve issue where "Add Activity" button doesn't show if activity doesn't have an image**
