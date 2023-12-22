@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { createTrips } from "../../utilities/trips-service";
 import { useNavigate, useParams } from "react-router-dom";
-import "./NewTripForm.css";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const NewTripForm = ({ updateTripList }) => {
@@ -20,14 +19,11 @@ const NewTripForm = ({ updateTripList }) => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    // console.log('data', newTrip);
-    // console.log('ID', id)
     const authId = user.sub.substring(user.sub.indexOf("|") + 1);
     console.log(authId);
     try {
       const tripData = { ...newTrip, id: authId };
       const trip = await createTrips(tripData);
-      //   console.log(trip)
       await updateTripList();
       navigate(`/trips/${trip._id}`);
     } catch (err) {}
@@ -43,7 +39,6 @@ const NewTripForm = ({ updateTripList }) => {
   }
 
   function handleChange(e) {
-    // console.log(e.target.name, e.target.value);
     setNewTrip({ ...newTrip, [e.target.name]: e.target.value });
   }
 

@@ -2,7 +2,6 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  /* font-family: Oswald; */
   color: #21bb8c;
 }
 
@@ -68,4 +67,38 @@
 .select-btn {
  margin: auto;
  bottom: 0px;
+}
+
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1rem;
+}
+
+.activity-card {
+  border: 1px solid #ddd;
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width:100%;
+}
+
+.activity-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.activity-image {
+  max-width: 100%;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+
+
+.activity-name, .activity-address {
+  margin: 0.5rem 0;
 }

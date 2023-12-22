@@ -1,4 +1,3 @@
-import "./MyTrips.css";
 import moment from "moment";
 import { useState, useEffect } from "react";
 import { getTrips } from "../../utilities/trips-service";
@@ -21,22 +20,19 @@ const MyTrips = () => {
         )
       );
     }
-    // console.log({ tripsData });
     setIsLoading(false);
   };
-
-  // console.log({trips})
 
   const sortedTrips = trips.sort(
     (a, b) => new Date(a.startDate) - new Date(b.startDate)
   );
   const renderTrips = () => (
-    <section className="mx-6 lg:mx-12">
+    <section id="trips" className="mx-6 lg:mx-12 mb-12">
       <h2 className="text-3xl sm:text-4xl font-bold text-emerald-500 ml-4 mb-4">
         Upcoming Trips
       </h2>
       <div
-        id="trips"
+        id="trips-grid"
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 trips-list"
       >
         {trips.length
@@ -70,7 +66,6 @@ const MyTrips = () => {
                     )}
                     {t.startDate && t.endDate ? <span> - </span> : null}
                     {t.endDate && <span>{moment(t.endDate).format("ll")}</span>}
-                    {/* <Link to={`/trips/${t._id}`} className="underline pt-2">View Trip</Link> */}
                   </div>
                 </Link>
               </div>

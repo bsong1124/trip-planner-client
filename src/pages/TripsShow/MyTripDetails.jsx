@@ -18,13 +18,11 @@ const MyTripDetails = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [locations, setLocations] = useState([]);
   const [image, setImage] = useState([]);
-  // const [searchActivity, setSearchActivity] = useState('')
   const [activities, setActivities] = useState([]);
   const [activitiesImage, setActivitiesImage] = useState([]);
 
   async function handleRequest() {
     const tripDetails = await getTrip(id);
-    // console.log({tripDetails})
     setTrip(tripDetails);
     setIsLoading(false);
   }
@@ -59,18 +57,12 @@ const MyTripDetails = () => {
   const getActivity = async (e) => {
     e.preventDefault();
     try {
-      // console.log(searchActivity)
       const activityResponse = await findActivity(id, trip.location.id);
-      // console.log(trip.location.id)
-      // console.log({ activityResponse });
       console.log({ activityResponse });
       setActivities(activityResponse.allNearbyData);
       setActivitiesImage(activityResponse.nearbyDataPromises);
     } catch (err) {}
   };
-  // console.log({ activitiesImage });
-  // console.log({activities})
-  // console.log(activities[0])
 
   const addLocation = async (l, idx) => {
     console.log({ l });
@@ -88,11 +80,8 @@ const MyTripDetails = () => {
       setTrip(updatedTripData);
       updateLocation(id, updatedTripData);
       console.log({ updatedTripData });
-
-      // navigate(`/trips/${id}`);
     } catch (err) {
       console.log(err);
-      // navigate(`/trips/${id}`);
     }
   };
 
@@ -112,7 +101,6 @@ const MyTripDetails = () => {
       navigate(`/trips/${id}`);
     } catch (err) {}
   };
-  // console.log({ trip });
 
   const handleDelete = async () => {
     try {
@@ -147,21 +135,22 @@ const MyTripDetails = () => {
       await addActivity(a, idx);
     };
     return (
-      <div key={idx}>
-        <form onSubmit={submit}>
-          <p>Name: {a.name}</p>
-          <p>Adress: {a.address_obj.address_string}</p>
-          {activitiesImage[idx] && (
-            <>
-              <img src={activitiesImage[idx].url} />
-              <button type="submit">Add Activity</button>
-            </>
-          )}
-        </form>
-        <br />
-      </div>
-    );
-  };
+        <div key={idx}>
+          <div className="activity-card">
+            <form onSubmit={submit} className="activity-form">
+              <p className="activity-name">Name: {a.name}</p>
+              <p className="activity-address">Address: {a.address_obj.address_string}</p>
+              {activitiesImage[idx] && (
+                <>
+                  <img src={activitiesImage[idx].url} alt={a.name} className="activity-image" />
+                  <button type="submit" className="btn btn-primary p-2">Add Activity</button>
+                </>
+              )}
+            </form>
+          </div>
+        </div>
+      );
+    };
 
   const renderTrip = () => (
     <div className="trip-container">
@@ -176,7 +165,6 @@ const MyTripDetails = () => {
         </div>
       ) : (
         <div className="search-section">
-          {/* <h3>Enter your location: </h3> */}
           <form onSubmit={getLocation}>
             <input
               className="input-field"
@@ -195,33 +183,40 @@ const MyTripDetails = () => {
         </div>
       )}
       <div className="dates-section">
-        <h3 className="text-2xl">Dates:</h3>
-        <p>
-          {moment(trip.startDate).format("ll")} -{" "}
-          {moment(trip.endDate).format("ll")}
-        </p>
-      </div>
+        {trip.startDate || trip.endDate ? <h3 className="text-2xl">Dates:</h3> : null}
+        {trip.startDate && (
+        <span>{moment(trip.startDate).format("ll")}</span>
+        )}
+        {trip.startDate && trip.endDate ? <span> - </span> : null}
+        {trip.endDate && <span>{moment(trip.endDate).format("ll")}</span>}
+        </div>
+
       <div className="description-section">
         <h3 className="text-2xl">Description:</h3>
         <p>{trip.description}</p>
       </div>
-      {/* TODO: conditionally render activities only if location is set */}
       {trip.location ? (
         <>
-          <h3>Activities:</h3>
+          <h3 className="text-3xl sm:text-4xl font-bold text-emerald-500 ml-4 mb-4">Current Activities Planned:</h3>
+          <div className="activity-grid">
           {trip.activities.map((a) => (
-            <>
-              <p>{a.name}</p>
-              <p>{a.address}</p>
-              <img src={a.image} />
-            </>
+            <div key={a.id}>
+              <div className="activity-card">
+              <p className="activity-name">{a.name}</p>
+              <p className="activity-address">{a.address}</p>
+              <img className="activity-image" src={a.image} />
+              </div>
+            </div>
           ))}
+          </div>
           <form onSubmit={getActivity}>
             <button type="submit" className="btn btn-primary p-2">
               Search Activities
             </button>
           </form>
+          <div className="activity-grid">
           {activities && activities.map((a, idx) => renderActivity(a, idx))}
+          </div>
         </>
       ) : null}
 <div className="flex justify-end mt-14">
