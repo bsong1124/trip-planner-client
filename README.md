@@ -70,3 +70,7 @@ The team wishes to express profound appreciation to TripAdvisor for providing an
 - **Weather updates based on travel locations and dates**
 - **Enhanced mobile responsiveness**
 - **Advanced search for specific interests like restaurants, concerts, museums**
+- **Loading conditions on API calls**
+- **Fallback image for activities search**
+- **Improved design consistency from page to page**
+- **Improved variable naming for semantic understanding**
