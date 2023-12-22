@@ -140,7 +140,7 @@ const MyTripDetails = () => {
         {
           name: a.name,
           address: a.address_obj.address_string,
-          image: activitiesImage[idx].url,
+          image: activitiesImage[idx]?.url || null
         },
       ];
       setTrip(trip);
