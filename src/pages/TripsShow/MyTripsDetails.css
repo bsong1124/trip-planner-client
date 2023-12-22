@@ -2,7 +2,6 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  /* font-family: Oswald; */
   color: #21bb8c;
 }
 
@@ -69,9 +68,6 @@
  margin: auto;
  bottom: 0px;
 }
-
-
-
 
 .activity-grid {
   display: grid;
