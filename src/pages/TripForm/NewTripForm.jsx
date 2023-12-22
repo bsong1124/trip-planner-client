@@ -20,7 +20,6 @@ const NewTripForm = ({ updateTripList }) => {
   async function handleSubmit(e) {
     e.preventDefault();
     const authId = user.sub.substring(user.sub.indexOf("|") + 1);
-    console.log(authId);
     try {
       const tripData = { ...newTrip, id: authId };
       const trip = await createTrips(tripData);

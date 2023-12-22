@@ -44,71 +44,14 @@ const MyTripDetails = () => {
   const getLocation = async (e) => {
     e.preventDefault();
     try {
-      console.log("search query", searchLocation);
       const locationResponse = await findLocation(id, searchLocation);
-      console.log({ locationResponse });
       setLocations(locationResponse.allData);
       setImage(locationResponse.imageData);
     } catch (err) {
       console.log("error");
     }
   };
-
-  const getActivity = async (e) => {
-    e.preventDefault();
-    try {
-      const activityResponse = await findActivity(id, trip.location.id);
-      console.log({ activityResponse });
-      setActivities(activityResponse.allNearbyData);
-      setActivitiesImage(activityResponse.nearbyDataPromises);
-    } catch (err) {}
-  };
-
-  const addLocation = async (l, idx) => {
-    console.log({ l });
-    try {
-      console.log({ image });
-      console.log("it works");
-      const updatedTripData = {
-        ...trip,
-        location: {
-          id: l.location_id,
-          name: l.name,
-          image: image[idx].url,
-        },
-      };
-      setTrip(updatedTripData);
-      updateLocation(id, updatedTripData);
-      console.log({ updatedTripData });
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const addActivity = async (a, idx) => {
-    console.log("working");
-    try {
-      trip.activities = [
-        ...trip.activities,
-        {
-          name: a.name,
-          address: a.address_obj.address_string,
-          image: activitiesImage[idx].url,
-        },
-      ];
-      setTrip(trip);
-      updateLocation(id, trip);
-      navigate(`/trips/${id}`);
-    } catch (err) {}
-  };
-
-  const handleDelete = async () => {
-    try {
-      await deleteTrip(id);
-      navigate("/trips");
-    } catch (err) {}
-  };
-
+  
   const renderLocation = (l, idx) => {
     const submit = async (e) => {
       e.preventDefault();
@@ -127,6 +70,32 @@ const MyTripDetails = () => {
         </form>
       </div>
     );
+  };
+  
+  const addLocation = async (l, idx) => {
+    try {
+      const updatedTripData = {
+        ...trip,
+        location: {
+          id: l.location_id,
+          name: l.name,
+          image: image[idx].url,
+        },
+      };
+      setTrip(updatedTripData);
+      updateLocation(id, updatedTripData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  const getActivity = async (e) => {
+    e.preventDefault();
+    try {
+      const activityResponse = await findActivity(id, trip.location.id);
+      setActivities(activityResponse.allNearbyData);
+      setActivitiesImage(activityResponse.nearbyDataPromises);
+    } catch (err) {}
   };
 
   const renderActivity = (a, idx) => {
@@ -151,6 +120,29 @@ const MyTripDetails = () => {
         </div>
       );
     };
+
+  const addActivity = async (a, idx) => {
+    try {
+      trip.activities = [
+        ...trip.activities,
+        {
+          name: a.name,
+          address: a.address_obj.address_string,
+          image: activitiesImage[idx].url,
+        },
+      ];
+      setTrip(trip);
+      updateLocation(id, trip);
+      navigate(`/trips/${id}`);
+    } catch (err) {}
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteTrip(id);
+      navigate("/trips");
+    } catch (err) {}
+  };
 
   const renderTrip = () => (
     <div className="trip-container">
