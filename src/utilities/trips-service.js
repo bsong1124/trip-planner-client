@@ -42,7 +42,7 @@ export async function deleteTrip(id) {
   }
 }
 
-export async function findLocations(id, q) {
+export async function findLocation(id, q) {
   try {
     const location = await tripsAPI.searchLocations(id, q);
     return location;

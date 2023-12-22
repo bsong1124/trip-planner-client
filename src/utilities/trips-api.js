@@ -80,7 +80,7 @@ export async function update(id, data) {
 }
 
 export async function searchActivity(id, q) {
-  // console.log({ q });
+  console.log({ q });
   const response = await fetch(
     `${config.BASE_URL}/${id}/activities/search?q=${q}`,
     {
@@ -95,7 +95,7 @@ export async function searchActivity(id, q) {
   // console.log({ response });
   if (response.ok) {
     const activityData = await response.json();
-    // console.log({ activityData });
+    console.log({ activityData });
     return activityData;
   } else {
     console.log(err.message);

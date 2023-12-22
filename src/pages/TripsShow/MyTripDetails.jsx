@@ -1,13 +1,13 @@
-import "./MyTripsDetails.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
   getTrip,
   deleteTrip,
-  findLocations,
+  findLocation,
   findActivity,
   updateLocation,
 } from "../../utilities/trips-service";
+import './MyTripsDetails.css'
 import moment from "moment";
 
 const MyTripDetails = () => {
@@ -22,11 +22,9 @@ const MyTripDetails = () => {
   const [activities, setActivities] = useState([]);
   const [activitiesImage, setActivitiesImage] = useState([]);
 
-
   async function handleRequest() {
     const tripDetails = await getTrip(id);
-    console.log({ tripDetails });
-
+    // console.log({tripDetails})
     setTrip(tripDetails);
     setIsLoading(false);
   }
@@ -45,12 +43,12 @@ const MyTripDetails = () => {
     setSearchLocation(e.target.value);
   };
 
-  const getLocations = async (e) => {
+  const getLocation = async (e) => {
     e.preventDefault();
     try {
-      console.log("search query", searchLocation);
-      const locationResponse = await findLocations(id, searchLocation);
-      console.log({ locationResponse });
+      // console.log("search query", searchLocation);
+      const locationResponse = await findLocation(id, searchLocation);
+      // console.log({ locationResponse });
       setLocations(locationResponse.allData);
       setImage(locationResponse.imageData);
     } catch (err) {
@@ -64,26 +62,27 @@ const MyTripDetails = () => {
       // console.log(searchActivity)
       const activityResponse = await findActivity(id, trip.location.id);
       // console.log(trip.location.id)
+      // console.log({ activityResponse });
       console.log({ activityResponse });
       setActivities(activityResponse.allNearbyData);
       setActivitiesImage(activityResponse.nearbyDataPromises);
     } catch (err) {}
   };
+  console.log({ activitiesImage });
+  // console.log({activities})
+  // console.log(activities[0])
 
   const addLocation = async (l, idx) => {
     console.log({ l });
     try {
-
       console.log({ image });
-
       console.log("it works");
       const updatedTripData = {
         ...trip,
         location: {
           id: l.location_id,
           name: l.name,
-          image: image[idx].url
-
+          image: image[idx].url,
         },
       };
       setTrip(updatedTripData);
@@ -113,9 +112,7 @@ const MyTripDetails = () => {
       navigate(`/trips/${id}`);
     } catch (err) {}
   };
-  console.log({ trip });
-
-  // console.log({trip})
+  // console.log({ trip });
 
   const handleDelete = async () => {
     try {
@@ -124,24 +121,23 @@ const MyTripDetails = () => {
     } catch (err) {}
   };
 
-  const renderLocations = (l, idx) => {
-
+  const renderLocation = (l, idx) => {
     const submit = async (e) => {
       e.preventDefault();
       await addLocation(l, idx);
     };
     return (
-        <div className="locations" key={l.location_id}>
-          <form onSubmit={submit}>
-              <div className="location-item">
-                <img className="img-details" src={image[idx].url} alt={l.name} />
-                <p className="location-name">{l.name}</p>
-                <button className="btn btn-primary select-btn" type="submit">Select Location</button>
-              </div>
-          </form>
+      <div className='locations' key={l.location_id}>
+        <form onSubmit={submit}>
+          <div className='location-item'>
+          <img className='img-details' src={image[idx].url} />
+          <p className='location-name'>{l.name}</p>
+          <button className='btn btn-primary' type="submit">Select Location</button>
         </div>
-      );
-    };
+        </form>
+      </div>
+    );
+  };
 
   const renderActivity = (a, idx) => {
     const submit = async (e) => {
@@ -153,50 +149,50 @@ const MyTripDetails = () => {
         <form onSubmit={submit}>
           <p>Name: {a.name}</p>
           <p>Adress: {a.address_obj.address_string}</p>
-          <img src={activitiesImage[idx].url} />
-          <button type="submit">Add Activity</button>
+          {activitiesImage[idx] && (
+            <>
+              <img src={activitiesImage[idx].url} />
+              <button type="submit">Add Activity</button>
+            </>
+          )}
         </form>
         <br />
       </div>
     );
   };
 
-
-
-
   const renderTrip = () => (
     <div className="trip-container">
       <h1 className="details-name">{trip.name.toUpperCase()}</h1>
       {trip.location ? (
-          <div className="location-section">
-          <h3>Location:</h3>
+        <div className="location-section">
+      <h3>Location:</h3>
           <p>{trip.location.name}</p>
           <img src={trip.location.image} />
-        </div>
+          </div>
       ) : (
         <div className="search-section">
-          <h3>Enter your location:</h3>
-          <form onSubmit={getLocations}>
-            <input className="input-field" type="text" value={searchLocation} onChange={handleChange} />
-            <button className="btn btn-primary p-2" type="submit">Search Location</button>
+          <h3>Enter your location: </h3>
+          <form onSubmit={getLocation}>
+            <input className='input-field' type="text" value={searchLocation} onChange={handleChange} />
+            <button className='btn btn-primary p-2' type="submit">Search Location</button>
           </form>
-          <div className="select-location">
-          {locations && locations.map((l, idx) => renderLocations(l, idx))}
+          <div className='select-location'>
+          {locations && locations.map((l, idx) => renderLocation(l, idx))}
         </div>
         </div>
       )}
-      <div className="dates-section">
+      <div className='dates-section'>
       <h3>Dates:</h3>
       <p>
         {moment(trip.startDate).format("ll")} -{" "}
         {moment(trip.endDate).format("ll")}
       </p>
       </div>
-       
-       <div className="description-section">
+      <div className='description-section'>
       <h3>Description:</h3>
       <p>{trip.description}</p>
-      </div>    
+      </div>
       <h3>Activities:</h3>
       {trip.activities.map((a) => (
         <>
@@ -205,16 +201,11 @@ const MyTripDetails = () => {
           <img src={a.image} />
         </>
       ))}
-      {/* <p>{trip.activities}</p> */}
       <form onSubmit={getActivity}>
         <button type="submit">Search Activities</button>
       </form>
-
       {activities && activities.map((a, idx) => renderActivity(a, idx))}
-      <button className="btn btn-primary p-2" onClick={handleDelete}>
-        Delete Trip
-      </button>
-
+      <button className='btn btn-primary p-2' onClick={handleDelete}>Delete Trip</button>
     </div>
   );
 
