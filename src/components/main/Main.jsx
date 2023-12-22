@@ -9,7 +9,7 @@ import MyTripDetails from "../../pages/TripsShow/MyTripDetails"
 
 const Main = () => {
   return (
-    <div className="Main">
+    <div id="main" className="mx-auto max-w-screen-lg">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/profile" element={<Profile />} />

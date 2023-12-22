@@ -17,7 +17,7 @@ export async function create(data) {
 }
 
 export async function index() {
-  console.log(config.BASE_URL);
+  // console.log(config.BASE_URL);
   const res = await fetch(config.BASE_URL, { method: "GET" });
   if (res.ok) {
     return res.json();
@@ -47,7 +47,7 @@ export async function destroy(id) {
   }
 }
 
-export async function searchLocation(id, q) {
+export async function searchLocations(id, q) {
   const response = await fetch(`${config.BASE_URL}/${id}/search?q=${q}`, {
     method: "GET",
     headers: {
@@ -64,13 +64,13 @@ export async function searchLocation(id, q) {
   }
 }
 
-export async function update(id, formData) {
-  const response = await fetch(`${config.BASE_URL}/${id}/search?q=${q}`, {
+export async function update(id, data) {
+  const response = await fetch(`${config.BASE_URL}/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(formData),
+    body: JSON.stringify(data),
   });
   if (response.ok) {
     return response.json();
@@ -80,16 +80,22 @@ export async function update(id, formData) {
 }
 
 export async function searchActivity(id, q) {
-  const response = await fetch(`${config.BASE_URL}/${id}/activities/search?q=${q}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-  // console.log("RESPONSE", response);
+  console.log({ q });
+  const response = await fetch(
+    `${config.BASE_URL}/${id}/activities/search?q=${q}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  // console.log(`${config.BASE_URL}/${id}/activities/search?q=${q}`);
+  // console.log({ q });
+  // console.log({ response });
   if (response.ok) {
     const activityData = await response.json();
-    // console.log({ activityData });
+    console.log({ activityData });
     return activityData;
   } else {
     console.log(err.message);

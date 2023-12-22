@@ -5,6 +5,7 @@ import { getTrips } from "../../utilities/trips-service";
 import { Link } from "react-router-dom";
 import NewTripForm from "../TripForm/NewTripForm";
 import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "../../components/Auth/LoginButton";
 
 const MyTrips = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -13,41 +14,70 @@ const MyTrips = () => {
 
   const handleRequest = async () => {
     const tripsData = await getTrips();
-    if (tripsData) setTrips(tripsData);
+    if (tripsData) {
+      setTrips(
+        tripsData.filter(
+          (trip) => trip.id === user.sub.substring(user.sub.indexOf("|") + 1)
+        )
+      );
+    }
+    // console.log({ tripsData });
     setIsLoading(false);
   };
+
+  // console.log({trips})
 
   const sortedTrips = trips.sort(
     (a, b) => new Date(a.startDate) - new Date(b.startDate)
   );
   const renderTrips = () => (
-    <>
-      <h1>Upcoming Trips</h1>
-      <section className="trips-list">
-        {/* Refactor conditional to read as trips id = user id */}
+    <section className="mx-6 lg:mx-12">
+      <h2 className="text-3xl sm:text-4xl font-bold text-emerald-500 ml-4 mb-4">
+        Upcoming Trips
+      </h2>
+      <div
+        id="trips"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 trips-list"
+      >
         {trips.length
           ? sortedTrips.map((t) => (
-              <>
-                {t.id === user.sub.slice(14) ? (
-                  <div key={t._id}>
-                    <Link to={`/trips/${t._id}`}>
-                      <div className="trips-card">
-                        {t.name}
-                        <br />
-                        {t.location ? t.location : "No location yet"}
-                        <br />
-                        Dates:
-                        {moment(t.startDate).format("ll")} -{" "}
-                        {moment(t.endDate).format("ll")}
-                      </div>
-                    </Link>
+              <div id="trip-card" key={t._id}>
+                <Link to={`/trips/${t._id}`}>
+                  {t.location ? (
+                    <img
+                      src={t.location.image}
+                      alt={`Photo of ${t.location.name}`}
+                      className="rounded-t-lg"
+                    />
+                  ) : (
+                    // change null to fallback image
+                    <img
+                      src="../../../images/location-image-fallback.png"
+                      alt="Fallback photo"
+                      className="rounded-t-lg"
+                    />
+                  )}
+                  <div
+                    id="card-bottom"
+                    className="rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-100"
+                  >
+                    <h3 className="text-xl font-semibold">
+                      {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
+                    </h3>
+                    {t.location && <p>{t.location.name}</p>}
+                    {t.startDate && (
+                      <span>{moment(t.startDate).format("ll")}</span>
+                    )}
+                    {t.startDate && t.endDate ? <span> - </span> : null}
+                    {t.endDate && <span>{moment(t.endDate).format("ll")}</span>}
+                    {/* <Link to={`/trips/${t._id}`} className="underline pt-2">View Trip</Link> */}
                   </div>
-                ) : null}
-              </>
+                </Link>
+              </div>
             ))
-          : "No trips yet"}
-      </section>
-    </>
+          : <div className="ml-6">No trips yet...</div>}
+      </div>
+    </section>
   );
 
   const renderLoading = () => (
@@ -57,20 +87,25 @@ const MyTrips = () => {
   );
 
   useEffect(() => {
-    handleRequest();
-  }, []);
+    if (user) handleRequest();
+  }, [user]);
 
   return (
-    <section>
+    <>
       {isAuthenticated && !loadingAuth ? (
-        <div>
+        <>
           <NewTripForm updateTripList={handleRequest} />
           {isLoading ? renderLoading() : renderTrips()}
-        </div>
+        </>
       ) : (
-        "Log in to create and view trips!"
+        <div className="text-center">
+          <h2 className="text-2xl mt-12 mb-4">
+            Log in to create and view trips!
+          </h2>
+          <LoginButton />
+        </div>
       )}
-    </section>
+    </>
   );
 };
 

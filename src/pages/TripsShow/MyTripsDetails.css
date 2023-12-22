@@ -1,0 +1,71 @@
+.trip-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  /* font-family: Oswald; */
+  color: #21bb8c;
+}
+
+.location-section {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.search-section {
+  margin-top: 10px;
+  text-align: center;
+}
+.dates-section,
+.description-section {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+.details-name {
+  font-size: 40px;
+  text-align: center;
+  font-weight: bold;
+}
+.input-field {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+  width: 50%;
+  margin-right: 4px;
+}
+.locations {
+  border: black solid 1px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 280px;
+}
+.location-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  height: 100%;
+  position: relative; 
+}
+.location-name {
+  font-weight: bold;
+}
+.select-location {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+}
+.img-details {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.select-btn {
+ margin: auto;
+ bottom: 0px;
+}
