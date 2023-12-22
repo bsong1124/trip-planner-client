@@ -195,12 +195,19 @@ const MyTripDetails = () => {
         </div>
       )}
       <div className="dates-section">
-        <h3 className="text-2xl">Dates:</h3>
+        {/* <h3 className="text-2xl">Dates:</h3>
         <p>
           {moment(trip.startDate).format("ll")} -{" "}
           {moment(trip.endDate).format("ll")}
-        </p>
-      </div>
+        </p> */}
+        {trip.startDate || trip.endDate ? <h3 className="text-2xl">Dates:</h3> : null}
+        {trip.startDate && (
+        <span>{moment(trip.startDate).format("ll")}</span>
+        )}
+        {trip.startDate && trip.endDate ? <span> - </span> : null}
+        {trip.endDate && <span>{moment(trip.endDate).format("ll")}</span>}
+        </div>
+
       <div className="description-section">
         <h3 className="text-2xl">Description:</h3>
         <p>{trip.description}</p>
