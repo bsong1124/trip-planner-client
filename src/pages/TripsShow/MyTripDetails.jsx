@@ -51,7 +51,7 @@ const MyTripDetails = () => {
       console.log("error");
     }
   };
-  
+
   const renderLocation = (l, idx) => {
     const submit = async (e) => {
       e.preventDefault();
@@ -71,7 +71,7 @@ const MyTripDetails = () => {
       </div>
     );
   };
-  
+
   const addLocation = async (l, idx) => {
     try {
       const updatedTripData = {
@@ -88,7 +88,7 @@ const MyTripDetails = () => {
       console.log(err);
     }
   };
-  
+
   const getActivity = async (e) => {
     e.preventDefault();
     try {
@@ -104,22 +104,34 @@ const MyTripDetails = () => {
       await addActivity(a, idx);
     };
     return (
-        <div key={idx}>
-          <div className="activity-card">
-            <form onSubmit={submit} className="activity-form">
-              <p className="activity-name">Name: {a.name}</p>
-              <p className="activity-address">Address: {a.address_obj.address_string}</p>
-              {activitiesImage[idx] && (
-                <>
-                  <img src={activitiesImage[idx].url} alt={a.name} className="activity-image" />
-                  <button type="submit" className="btn btn-primary p-2">Add Activity</button>
-                </>
-              )}
-            </form>
-          </div>
+      <div key={idx}>
+        <div className="activity-card">
+          <form onSubmit={submit} className="activity-form">
+            <p className="activity-name">Name: {a.name}</p>
+            <p className="activity-address">
+              Address: {a.address_obj.address_string}
+            </p>
+            {activitiesImage[idx] ? (
+              <img
+                src={activitiesImage[idx].url}
+                alt={`Photo of ${a.name}`}
+                className="activity-image"
+              />
+            ) : (
+              <img
+                src="../../../images/location-image-fallback.png"
+                alt="Fallback photo"
+                className="activity-image"
+              />
+            )}
+            <button type="submit" className="btn btn-primary p-2">
+              Add Activity
+            </button>
+          </form>
         </div>
-      );
-    };
+      </div>
+    );
+  };
 
   const addActivity = async (a, idx) => {
     try {
@@ -128,7 +140,7 @@ const MyTripDetails = () => {
         {
           name: a.name,
           address: a.address_obj.address_string,
-          image: activitiesImage[idx].url,
+          image: activitiesImage[idx]?.url || null
         },
       ];
       setTrip(trip);
@@ -175,13 +187,13 @@ const MyTripDetails = () => {
         </div>
       )}
       <div className="dates-section">
-        {trip.startDate || trip.endDate ? <h3 className="text-2xl">Dates:</h3> : null}
-        {trip.startDate && (
-        <span>{moment(trip.startDate).format("ll")}</span>
-        )}
+        {trip.startDate || trip.endDate ? (
+          <h3 className="text-2xl">Dates:</h3>
+        ) : null}
+        {trip.startDate && <span>{moment(trip.startDate).format("ll")}</span>}
         {trip.startDate && trip.endDate ? <span> - </span> : null}
         {trip.endDate && <span>{moment(trip.endDate).format("ll")}</span>}
-        </div>
+      </div>
 
       <div className="description-section">
         <h3 className="text-2xl">Description:</h3>
@@ -189,17 +201,19 @@ const MyTripDetails = () => {
       </div>
       {trip.location ? (
         <>
-          <h3 className="text-3xl sm:text-4xl font-bold text-emerald-500 ml-4 mb-4">Current Activities Planned:</h3>
+          <h3 className="text-3xl sm:text-4xl font-bold text-emerald-500 ml-4 mb-4">
+            Current Activities Planned:
+          </h3>
           <div className="activity-grid">
-          {trip.activities.map((a) => (
-            <div key={a.id}>
-              <div className="activity-card">
-              <p className="activity-name">{a.name}</p>
-              <p className="activity-address">{a.address}</p>
-              <img className="activity-image" src={a.image} />
+            {trip.activities.map((a) => (
+              <div key={a.id}>
+                <div className="activity-card">
+                  <p className="activity-name">{a.name}</p>
+                  <p className="activity-address">{a.address}</p>
+                  <img className="activity-image" src={a.image} />
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
           </div>
           <form onSubmit={getActivity}>
             <button type="submit" className="btn btn-primary p-2">
@@ -207,14 +221,17 @@ const MyTripDetails = () => {
             </button>
           </form>
           <div className="activity-grid">
-          {activities && activities.map((a, idx) => renderActivity(a, idx))}
+            {activities && activities.map((a, idx) => renderActivity(a, idx))}
           </div>
         </>
       ) : null}
-<div className="flex justify-end mt-14">
-      <button className="btn btn-secondary border-red-500 text-red-500 hover:bg-red-100 p-2" onClick={handleDelete}>
-        Delete Trip
-      </button>
+      <div className="flex justify-end mt-14">
+        <button
+          className="btn btn-secondary border-red-500 text-red-500 hover:bg-red-100 p-2"
+          onClick={handleDelete}
+        >
+          Delete Trip
+        </button>
       </div>
     </div>
   );
