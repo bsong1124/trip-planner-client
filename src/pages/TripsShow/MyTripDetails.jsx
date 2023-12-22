@@ -7,7 +7,7 @@ import {
   findActivity,
   updateLocation,
 } from "../../utilities/trips-service";
-import './MyTripsDetails.css'
+import "./MyTripsDetails.css";
 import moment from "moment";
 
 const MyTripDetails = () => {
@@ -46,9 +46,9 @@ const MyTripDetails = () => {
   const getLocation = async (e) => {
     e.preventDefault();
     try {
-      // console.log("search query", searchLocation);
+      console.log("search query", searchLocation);
       const locationResponse = await findLocation(id, searchLocation);
-      // console.log({ locationResponse });
+      console.log({ locationResponse });
       setLocations(locationResponse.allData);
       setImage(locationResponse.imageData);
     } catch (err) {
@@ -68,7 +68,7 @@ const MyTripDetails = () => {
       setActivitiesImage(activityResponse.nearbyDataPromises);
     } catch (err) {}
   };
-  console.log({ activitiesImage });
+  // console.log({ activitiesImage });
   // console.log({activities})
   // console.log(activities[0])
 
@@ -127,13 +127,15 @@ const MyTripDetails = () => {
       await addLocation(l, idx);
     };
     return (
-      <div className='locations' key={l.location_id}>
+      <div className="locations" key={l.location_id}>
         <form onSubmit={submit}>
-          <div className='location-item'>
-          <img className='img-details' src={image[idx].url} />
-          <p className='location-name'>{l.name}</p>
-          <button className='btn btn-primary' type="submit">Select Location</button>
-        </div>
+          <div className="location-item">
+            <img className="img-details" src={image[idx].url} />
+            <p className="location-name">{l.name}</p>
+            <button className="btn btn-primary" type="submit">
+              Select Location
+            </button>
+          </div>
         </form>
       </div>
     );
@@ -163,49 +165,70 @@ const MyTripDetails = () => {
 
   const renderTrip = () => (
     <div className="trip-container">
-      <h1 className="details-name">{trip.name.toUpperCase()}</h1>
+      <h1 className="details-name">
+        {trip.name.charAt(0).toUpperCase() + trip.name.slice(1)}
+      </h1>
       {trip.location ? (
         <div className="location-section">
-      <h3>Location:</h3>
+          <h3>Location:</h3>
           <p>{trip.location.name}</p>
           <img src={trip.location.image} />
-          </div>
+        </div>
       ) : (
         <div className="search-section">
-          <h3>Enter your location: </h3>
+          {/* <h3>Enter your location: </h3> */}
           <form onSubmit={getLocation}>
-            <input className='input-field' type="text" value={searchLocation} onChange={handleChange} />
-            <button className='btn btn-primary p-2' type="submit">Search Location</button>
+            <input
+              className="input-field"
+              type="text"
+              value={searchLocation}
+              onChange={handleChange}
+              placeholder="Where are you traveling to?"
+            />
+            <button className="btn btn-primary p-2" type="submit">
+              Search Location
+            </button>
           </form>
-          <div className='select-location'>
-          {locations && locations.map((l, idx) => renderLocation(l, idx))}
-        </div>
+          <div className="select-location">
+            {locations && locations.map((l, idx) => renderLocation(l, idx))}
+          </div>
         </div>
       )}
-      <div className='dates-section'>
-      <h3>Dates:</h3>
-      <p>
-        {moment(trip.startDate).format("ll")} -{" "}
-        {moment(trip.endDate).format("ll")}
-      </p>
+      <div className="dates-section">
+        <h3 className="text-2xl">Dates:</h3>
+        <p>
+          {moment(trip.startDate).format("ll")} -{" "}
+          {moment(trip.endDate).format("ll")}
+        </p>
       </div>
-      <div className='description-section'>
-      <h3>Description:</h3>
-      <p>{trip.description}</p>
+      <div className="description-section">
+        <h3 className="text-2xl">Description:</h3>
+        <p>{trip.description}</p>
       </div>
-      <h3>Activities:</h3>
-      {trip.activities.map((a) => (
+      {/* TODO: conditionally render activities only if location is set */}
+      {trip.location ? (
         <>
-          <p>{a.name}</p>
-          <p>{a.address}</p>
-          <img src={a.image} />
+          <h3>Activities:</h3>
+          {trip.activities.map((a) => (
+            <>
+              <p>{a.name}</p>
+              <p>{a.address}</p>
+              <img src={a.image} />
+            </>
+          ))}
+          <form onSubmit={getActivity}>
+            <button type="submit" className="btn btn-primary p-2">
+              Search Activities
+            </button>
+          </form>
+          {activities && activities.map((a, idx) => renderActivity(a, idx))}
         </>
-      ))}
-      <form onSubmit={getActivity}>
-        <button type="submit">Search Activities</button>
-      </form>
-      {activities && activities.map((a, idx) => renderActivity(a, idx))}
-      <button className='btn btn-primary p-2' onClick={handleDelete}>Delete Trip</button>
+      ) : null}
+<div className="flex justify-end mt-14">
+      <button className="btn btn-secondary border-red-500 text-red-500 hover:bg-red-100 p-2" onClick={handleDelete}>
+        Delete Trip
+      </button>
+      </div>
     </div>
   );
 

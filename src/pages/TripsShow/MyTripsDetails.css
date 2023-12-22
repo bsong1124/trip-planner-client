@@ -2,7 +2,7 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  font-family: Oswald;
+  /* font-family: Oswald; */
   color: #21bb8c;
 }
 
@@ -35,6 +35,8 @@
   border-radius: 4px;
   font-size: 16px;
   box-sizing: border-box;
+  width: 50%;
+  margin-right: 4px;
 }
 .locations {
   border: black solid 1px;
