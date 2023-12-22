@@ -30,7 +30,7 @@ Explore every detail of your journey on this comprehensive page.
 
 <img width="1436" alt="Screen Shot 2023-12-22 at 9 01 42 AM" src="https://github.com/bsong1124/trip-planner-client/assets/31771870/13975e13-904f-4c39-8a92-399ef6ad618c">
 
-## 🧭Location Discovery
+## 🧭 Location Discovery
 Haven't decided where to go? Our location search provides you with a curated list of destinations to choose from.
 
 <img width="1440" alt="Screen Shot 2023-12-22 at 1 24 54 AM" src="https://github.com/bsong1124/trip-planner-client/assets/31771870/f1a012e8-36dd-4586-bf3e-c7f2023a4a92">
