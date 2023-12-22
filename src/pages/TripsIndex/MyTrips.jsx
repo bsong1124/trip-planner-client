@@ -35,7 +35,10 @@ const MyTrips = () => {
       <h2 className="text-3xl sm:text-4xl font-bold text-emerald-500 ml-4 mb-4">
         Upcoming Trips
       </h2>
-      <div id="trips" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 trips-list">
+      <div
+        id="trips"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 trips-list"
+      >
         {trips.length
           ? sortedTrips.map((t) => (
               <div id="trip-card" key={t._id}>
@@ -56,9 +59,11 @@ const MyTrips = () => {
                   )}
                   <div
                     id="card-bottom"
-                    className="rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-200"
+                    className="rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-100"
                   >
-                    <h3 className="text-xl font-semibold">{t.name}</h3>
+                    <h3 className="text-xl font-semibold">
+                      {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
+                    </h3>
                     {t.location && <p>{t.location.name}</p>}
                     {t.startDate && (
                       <span>{moment(t.startDate).format("ll")}</span>
@@ -94,10 +99,10 @@ const MyTrips = () => {
         </>
       ) : (
         <div className="text-center">
-        <h2 className="text-2xl mt-12 mb-4">
-        Log in to create and view trips!
-        </h2>
-        <LoginButton />
+          <h2 className="text-2xl mt-12 mb-4">
+            Log in to create and view trips!
+          </h2>
+          <LoginButton />
         </div>
       )}
     </>
