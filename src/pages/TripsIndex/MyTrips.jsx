@@ -5,6 +5,7 @@ import { getTrips } from "../../utilities/trips-service";
 import { Link } from "react-router-dom";
 import NewTripForm from "../TripForm/NewTripForm";
 import { useAuth0 } from "@auth0/auth0-react";
+import LoginButton from "../../components/Auth/LoginButton";
 
 const MyTrips = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -14,7 +15,11 @@ const MyTrips = () => {
   const handleRequest = async () => {
     const tripsData = await getTrips();
     if (tripsData) {
-      setTrips(tripsData.filter((trip) => trip.id === user.sub.slice(14)));
+      setTrips(
+        tripsData.filter(
+          (trip) => trip.id === user.sub.substring(user.sub.indexOf("|") + 1)
+        )
+      );
     }
     console.log({ tripsData });
     setIsLoading(false);
@@ -26,14 +31,17 @@ const MyTrips = () => {
     (a, b) => new Date(a.startDate) - new Date(b.startDate)
   );
   const renderTrips = () => (
-    <section className="mx-6">
-      <h2 className="text-4xl font-bold text-emerald-500 mb-4">
+    <section className="mx-6 lg:mx-12">
+      <h2 className="text-3xl sm:text-4xl font-bold text-emerald-500 ml-4 mb-4">
         Upcoming Trips
       </h2>
-      <div id="trips" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 trips-list">
+      <div
+        id="trips"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 trips-list"
+      >
         {trips.length
           ? sortedTrips.map((t) => (
-              <div id="card" key={t._id} className="trips-card">
+              <div id="trip-card" key={t._id}>
                 <Link to={`/trips/${t._id}`}>
                   {t.location ? (
                     <img
@@ -51,9 +59,11 @@ const MyTrips = () => {
                   )}
                   <div
                     id="card-bottom"
-                    className="bg-lime-100 rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-200"
+                    className="rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-100"
                   >
-                    <h3 className="text-xl font-semibold">{t.name}</h3>
+                    <h3 className="text-xl font-semibold">
+                      {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
+                    </h3>
                     {t.location && <p>{t.location.name}</p>}
                     {t.startDate && (
                       <span>{moment(t.startDate).format("ll")}</span>
@@ -88,9 +98,12 @@ const MyTrips = () => {
           {isLoading ? renderLoading() : renderTrips()}
         </>
       ) : (
-        <h2 className="text-2xl text-center">
-        Log in to create and view trips!
-        </h2>
+        <div className="text-center">
+          <h2 className="text-2xl mt-12 mb-4">
+            Log in to create and view trips!
+          </h2>
+          <LoginButton />
+        </div>
       )}
     </>
   );

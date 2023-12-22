@@ -8,8 +8,8 @@ import LogoutButton from "../Auth/LogoutButton";
 const Header = () => {
   const { user, isAuthenticated, isLoading } = useAuth0();
   return (
-    <header className="flex items-center justify-around font-nav font-extralight text-sm sm:text-xl text-emerald-500 m-2 sm:m-8">
-      <nav id="left-nav" className="flex items-center justify-between">
+    <header className="flex items-center justify-around bg-emerald-100 text-sm sm:text-xl text-emerald-500 mb-6 sm:mb-8 p-2 sticky top-0">
+      <nav id="left-nav" className="flex items-center justify-between font-nav font-light">
         <Link to="/">
           <img className="w-16 logo-img" src="../../../images/favicon.png" />{" "}
         </Link>
@@ -43,8 +43,7 @@ const Header = () => {
           // if the user is authenticated (isAuthenticated === true), then a profile link and logout button are visible, otherwise, it will display the login button
           isAuthenticated ? (
             <>
-              {/* <Link to="/profile">Profile</Link> */}
-              <Link className=" mr-2" to="/profile">
+              <Link className="mr-2" to="/trips">
                 <img
                   src={user.picture}
                   alt={`Picture of ${user.name}`}
