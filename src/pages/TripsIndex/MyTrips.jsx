@@ -21,7 +21,7 @@ const MyTrips = () => {
         )
       );
     }
-    console.log({ tripsData });
+    // console.log({ tripsData });
     setIsLoading(false);
   };
 
@@ -52,7 +52,7 @@ const MyTrips = () => {
                   ) : (
                     // change null to fallback image
                     <img
-                      src="../../../public/images/location-image-fallback.png"
+                      src="../../../images/location-image-fallback.png"
                       alt="Fallback photo"
                       className="rounded-t-lg"
                     />
@@ -75,7 +75,7 @@ const MyTrips = () => {
                 </Link>
               </div>
             ))
-          : "No trips yet"}
+          : <div className="ml-6">No trips yet...</div>}
       </div>
     </section>
   );
