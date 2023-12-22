@@ -35,42 +35,43 @@ const MyTrips = () => {
         id="trips-grid"
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 trips-list"
       >
-        {trips.length
-          ? sortedTrips.map((t) => (
-              <div id="trip-card" key={t._id}>
-                <Link to={`/trips/${t._id}`}>
-                  {t.location ? (
-                    <img
-                      src={t.location.image}
-                      alt={`Photo of ${t.location.name}`}
-                      className="rounded-t-lg"
-                    />
-                  ) : (
-                    // change null to fallback image
-                    <img
-                      src="../../../images/location-image-fallback.png"
-                      alt="Fallback photo"
-                      className="rounded-t-lg"
-                    />
+        {trips.length ? (
+          sortedTrips.map((t) => (
+            <div id="trip-card" key={t._id}>
+              <Link to={`/trips/${t._id}`}>
+                {t.location ? (
+                  <img
+                    src={t.location.image}
+                    alt={`Photo of ${t.location.name}`}
+                    className="rounded-t-lg"
+                  />
+                ) : (
+                  <img
+                    src="../../../images/location-image-fallback.png"
+                    alt="Fallback photo"
+                    className="rounded-t-lg"
+                  />
+                )}
+                <div
+                  id="card-bottom"
+                  className="rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-100"
+                >
+                  <h3 className="text-xl font-semibold">
+                    {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
+                  </h3>
+                  {t.location && <p>{t.location.name}</p>}
+                  {t.startDate && (
+                    <span>{moment(t.startDate).format("ll")}</span>
                   )}
-                  <div
-                    id="card-bottom"
-                    className="rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-100"
-                  >
-                    <h3 className="text-xl font-semibold">
-                      {t.name.charAt(0).toUpperCase() + t.name.slice(1)}
-                    </h3>
-                    {t.location && <p>{t.location.name}</p>}
-                    {t.startDate && (
-                      <span>{moment(t.startDate).format("ll")}</span>
-                    )}
-                    {t.startDate && t.endDate ? <span> - </span> : null}
-                    {t.endDate && <span>{moment(t.endDate).format("ll")}</span>}
-                  </div>
-                </Link>
-              </div>
-            ))
-          : <div className="ml-6">No trips yet...</div>}
+                  {t.startDate && t.endDate ? <span> - </span> : null}
+                  {t.endDate && <span>{moment(t.endDate).format("ll")}</span>}
+                </div>
+              </Link>
+            </div>
+          ))
+        ) : (
+          <div className="ml-6">No trips yet...</div>
+        )}
       </div>
     </section>
   );
