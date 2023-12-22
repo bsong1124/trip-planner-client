@@ -147,21 +147,22 @@ const MyTripDetails = () => {
       await addActivity(a, idx);
     };
     return (
-      <div key={idx}>
-        <form onSubmit={submit}>
-          <p>Name: {a.name}</p>
-          <p>Adress: {a.address_obj.address_string}</p>
-          {activitiesImage[idx] && (
-            <>
-              <img src={activitiesImage[idx].url} />
-              <button type="submit">Add Activity</button>
-            </>
-          )}
-        </form>
-        <br />
-      </div>
-    );
-  };
+        <div key={idx}>
+          <div className="activity-card">
+            <form onSubmit={submit} className="activity-form">
+              <p className="activity-name">Name: {a.name}</p>
+              <p className="activity-address">Address: {a.address_obj.address_string}</p>
+              {activitiesImage[idx] && (
+                <>
+                  <img src={activitiesImage[idx].url} alt={a.name} className="activity-image" />
+                  <button type="submit" className="btn btn-primary p-2">Add Activity</button>
+                </>
+              )}
+            </form>
+          </div>
+        </div>
+      );
+    };
 
   const renderTrip = () => (
     <div className="trip-container">
@@ -221,7 +222,9 @@ const MyTripDetails = () => {
               Search Activities
             </button>
           </form>
+          <div className="activity-grid">
           {activities && activities.map((a, idx) => renderActivity(a, idx))}
+          </div>
         </>
       ) : null}
 <div className="flex justify-end mt-14">
