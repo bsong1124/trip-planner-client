@@ -211,8 +211,6 @@ const MyTripDetails = () => {
       </form>
 
       {activities && activities.map((a, idx) => renderActivity(a, idx))}
-      <button onClick={handleDelete}>Delete Trip</button>
-
       <button className="btn btn-primary p-2" onClick={handleDelete}>
         Delete Trip
       </button>
