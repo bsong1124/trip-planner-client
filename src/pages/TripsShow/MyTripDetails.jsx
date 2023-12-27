@@ -198,13 +198,13 @@ const MyTripDetails = () => {
       {trip.location ? (
         <>
           <h3 className="text-3xl sm:text-4xl font-bold text-emerald-500 ml-4 mb-4">Current Activities Planned:</h3>
-          <div className="activity-grid">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 trips-list">
           {trip.activities.map((a) => (
             <div key={a.id}>
-              <div className="activity-card">
-              <p className="activity-name">{a.name}</p>
+              <img className="rounded-t-lg" src={a.image} />
+              <div className="rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-100">
+              <p className="text-xl font-semibold">{a.name}</p>
               <p className="activity-address">{a.address}</p>
-              <img className="activity-image" src={a.image} />
               </div>
             </div>
           ))}
@@ -214,7 +214,7 @@ const MyTripDetails = () => {
               Search Activities
             </button>
           </form>
-          <div className="activity-grid">
+          <div className="rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-100">
           {activities && activities.map((a, idx) => renderActivity(a, idx))}
           </div>
         </>
