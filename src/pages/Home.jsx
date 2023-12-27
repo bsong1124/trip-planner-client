@@ -7,7 +7,7 @@ const Home = () => {
   const { user, isLoading: loadingAuth, isAuthenticated } = useAuth0();
 
   return (
-    <div className="text-center mt-32">
+    <div className="flex flex-col items-center mt-32">
       <h1 className="text-4xl sm:text-6xl font-heading font-medium text-center text-emerald-500 m-4">Welcome to Journey Craft</h1>
       <p className="text-2xl sm:text-3xl mb-6">
         It's time to plan your next getaway.
@@ -26,6 +26,7 @@ const Home = () => {
         <LoginButton />
         </div>
       )}
+      <img src="../../images/favicon.png" alt="Journey Craft" className=" max-w-64 sm:max-w-sm" />
     </div>
   );
 };
