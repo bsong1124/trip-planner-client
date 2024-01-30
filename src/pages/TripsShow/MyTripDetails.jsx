@@ -207,21 +207,18 @@ const MyTripDetails = () => {
             <div key={a.id}>
               <img className="rounded-t-lg" src={a.image} />
               <div className="rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-100">
-              <p className="text-xl font-semibold">{a.name}</p>
-              <p className="activity-address">{a.address}</p>
+                <p className="text-xl font-semibold">{a.name}</p>
+                <p className="activity-address">{a.address}</p>
               </div>
+            </div>
             ))}
           </div>
-          
           <form onSubmit={getActivity}>
             <button type="submit" className="btn btn-primary p-2">
               Search Activities
             </button>
           </form>
           <div className="rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-100">
-          {activities && activities.map((a, idx) => renderActivity(a, idx))}
-
-          <div className="activity-grid">
             {activities && activities.map((a, idx) => renderActivity(a, idx))}
           </div>
         </>
