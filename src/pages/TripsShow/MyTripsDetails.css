@@ -85,11 +85,11 @@
   max-width:100%;
 }
 
-.activity-form {
+/* .activity-form {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+} */
 
 .activity-image {
   max-width: 100%;

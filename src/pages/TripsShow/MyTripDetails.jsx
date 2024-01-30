@@ -104,29 +104,29 @@ const MyTripDetails = () => {
       await addActivity(a, idx);
     };
     return (
-      <div key={idx}>
-        <div className="activity-card">
-          <form onSubmit={submit} className="activity-form">
-            <p className="activity-name">Name: {a.name}</p>
-            <p className="activity-address">
-              Address: {a.address_obj.address_string}
-            </p>
+      <div key={idx} id="activities-results-grid">
+        <div id="activity-child">
+          <form onSubmit={submit}>
             {activitiesImage[idx] ? (
               <img
                 src={activitiesImage[idx].url}
                 alt={`Photo of ${a.name}`}
-                className="activity-image"
+                className="rounded-t-lg"
               />
             ) : (
               <img
                 src="../../../images/location-image-fallback.png"
                 alt="Fallback photo"
-                className="activity-image"
+                className="rounded-t-lg"
               />
             )}
-            <button type="submit" className="btn btn-primary p-2">
-              Add Activity
-            </button>
+            <div className="rounded-b-lg pt-4 px-6 pb-8 shadow-2xl bg-white hover:bg-emerald-100">
+              <p className="text-xl font-semibold">{a.name}</p>
+              <p className="activity-address">{a.address_obj.address_string}</p>
+              <button type="submit" className="btn btn-primary p-2">
+                Add Activity
+              </button>
+            </div>
           </form>
         </div>
       </div>
@@ -215,16 +215,17 @@ const MyTripDetails = () => {
               </div>
             ))}
           </div>
-          <form onSubmit={getActivity}>
-            <button type="submit" className="btn btn-primary p-2">
+          <div className="text-center">
+            <h3 className="mt-10 mb-2 text-2xl text-black">Want to add to your itinerary?</h3>
+            <form onSubmit={getActivity}>
+              <button type="submit" className="btn btn-primary p-2 mb-8">
               Search Activities
-            </button>
-          </form>
-          {activities ? (
-            <div className="rounded-b-lg pt-4 px-6 pb-8 shadow-2xl hover:bg-emerald-100">
+              </button>
+            </form>
+          </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {activities && activities.map((a, idx) => renderActivity(a, idx))}
             </div>
-          ) : null}
         </>
       ) : null}
       <div className="flex justify-end mt-14">

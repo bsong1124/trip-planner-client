@@ -33,7 +33,7 @@ const MyTrips = () => {
       </h2>
       <div
         id="trips-grid"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 trips-list"
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
       >
         {trips.length ? (
           sortedTrips.map((t) => (
